@@ -55,90 +55,52 @@ public class FURN extends RECO
 				MODL.addMODSSub(bs);
 			}
 
-			else if (sr.getSubrecordType().equals("PNAM"))
-			{
+			else if (sr.getSubrecordType().equals("PNAM")) {
+			} else if (sr.getSubrecordType().equals("FNAM")) {
+			} else if (sr.getSubrecordType().equals("KNAM")) {
+			} else if (sr.getSubrecordType().equals("MNAM")) {
+			} else if (sr.getSubrecordType().equals("WBDT")) {
+			} else if (sr.getSubrecordType().equals("ENAM")) {
+			} else if (sr.getSubrecordType().equals("NAM0")) {
+			} else if (sr.getSubrecordType().equals("FNPR")) {
+			} else if (sr.getSubrecordType().equals("KSIZ")) {
+			} else if (sr.getSubrecordType().equals("KWDA")) {
+			} else if (sr.getSubrecordType().equals("VMAD")) {
+			} else if (sr.getSubrecordType().equals("XMRK")) {
+			} else if (sr.getSubrecordType().equals("FNMK")) {
+			} else if (sr.getSubrecordType().equals("DEST")) {
+			} else if (sr.getSubrecordType().equals("DSTD")) {
+			} else if (sr.getSubrecordType().equals("DSTF")) {
 			}
-			else if (sr.getSubrecordType().equals("FNAM"))
-			{
+			//FO4
+			else if (sr.getSubrecordType().equals("SNAM")) {
+			} else if (sr.getSubrecordType().equals("PTRN")) {
+			} else if (sr.getSubrecordType().equals("PRPS")) {
+			} else if (sr.getSubrecordType().equals("ATTX")) {
+			} else if (sr.getSubrecordType().equals("OBTE")) {
+			} else if (sr.getSubrecordType().equals("OBTS")) {
+			} else if (sr.getSubrecordType().equals("STOP")) {
+			} else if (sr.getSubrecordType().equals("COCT")) {
+			} else if (sr.getSubrecordType().equals("DMDL")) {
 			}
-			else if (sr.getSubrecordType().equals("KNAM"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("MNAM"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("WBDT"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("ENAM"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("NAM0"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("FNPR"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("KWDA"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("VMAD"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("XMRK"))
-			{
-			}
-
-			else if (sr.getSubrecordType().equals("FNMK"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("DEST"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("DSTD"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("DSTF"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("SNAM"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PRPS"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("ATTX"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("OBTE"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("OBTS"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("STOP"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("COCT"))
-			{
-				// new
-			}else if (sr.getSubrecordType().equals("DMDL"))
-			{
-				// new
-			}
+			
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLM")) {	
+			} else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("PAHD")) {		
+			} else if (sr.getSubrecordType().equals("CTRN")) {		
+			} else if (sr.getSubrecordType().equals("ZNAM")) {		
+			} else if (sr.getSubrecordType().equals("FFEF")) {		
+			} else if (sr.getSubrecordType().equals("NVNM")) {		
+			} else if (sr.getSubrecordType().equals("FTYP")) {		
+			} else if (sr.getSubrecordType().equals("HGLB")) {		
+			} else if (sr.getSubrecordType().equals("DEFL")) {		
+			} else if (sr.getSubrecordType().equals("SNTP")) {		
+			} else if (sr.getSubrecordType().equals("XFLG")) {		
+			} else if (sr.getSubrecordType().equals("XALG")) {		
+			} 
 			else
 			{
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);

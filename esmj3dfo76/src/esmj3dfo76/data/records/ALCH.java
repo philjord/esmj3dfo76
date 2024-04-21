@@ -29,81 +29,46 @@ public class ALCH extends RECO
 			Subrecord sr = subrecords.get(i);
 			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("EDID"))
-			{
+			if (sr.getSubrecordType().equals("EDID")) {
 				EDID = new ZString(bs);
-			}
-			else if (sr.getSubrecordType().equals("OBND"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("FULL"))
-			{
+			} else if (sr.getSubrecordType().equals("OBND")) {
+			} else if (sr.getSubrecordType().equals("FULL")) {
 				FULL = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("MODL"))
-			{
+			} else if (sr.getSubrecordType().equals("MODL")) {
 				MODL = new MODL(bs);
-			}
-			else if (sr.getSubrecordType().equals("MODT"))
-			{
+			} else if (sr.getSubrecordType().equals("MODT")) {
 				MODL.addMODTSub(bs);
-			}
-			else if (sr.getSubrecordType().equals("MODS"))
-			{
+			} else if (sr.getSubrecordType().equals("MODS")) {
 				MODL.addMODSSub(bs);
-			}
-			else if (sr.getSubrecordType().equals("DATA"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("ENIT"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("EFID"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("EFIT"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("KWDA"))
-			{
+			}else if (sr.getSubrecordType().equals("DATA")) {
+			} else if (sr.getSubrecordType().equals("ENIT")) {
+			} else if (sr.getSubrecordType().equals("EFID")) {
+			} else if (sr.getSubrecordType().equals("EFIT")) {
+			} else if (sr.getSubrecordType().equals("KSIZ")) {
+			} else if (sr.getSubrecordType().equals("KWDA")) {
 				// keywords
+			} else if (sr.getSubrecordType().equals("YNAM")) {
+			} else if (sr.getSubrecordType().equals("ZNAM")) {
+			} else if (sr.getSubrecordType().equals("CTDA")) {
 			}
-			else if (sr.getSubrecordType().equals("YNAM"))
-			{
-
+			//FO4
+			else if (sr.getSubrecordType().equals("DESC")) {
+			} else if (sr.getSubrecordType().equals("DNAM")) {
+			} else if (sr.getSubrecordType().equals("PTRN")) {
+			} else if (sr.getSubrecordType().equals("CUSD")) {
 			}
-			else if (sr.getSubrecordType().equals("ZNAM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("CTDA"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DESC"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("DNAM"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("CUSD"))
-			{
-				// new
-			}
+			//FO76
+			else if (sr.getSubrecordType().equals("SNTP")) {	
+			} else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("CODV")) {
+			} else if (sr.getSubrecordType().equals("MAGF")) {	
+			} else if (sr.getSubrecordType().equals("DURG")) {		
+			} else if (sr.getSubrecordType().equals("MAGG")) {	
+			} else if (sr.getSubrecordType().equals("CODV")) {		
+			} else if (sr.getSubrecordType().equals("MIID")) {		
+			} 
 			else
 			{
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);

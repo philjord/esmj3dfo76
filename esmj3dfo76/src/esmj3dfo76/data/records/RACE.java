@@ -91,13 +91,16 @@ public class RACE extends RECO
 		{
 			int kwdaCount = ESMByteConvert.extractInt(sr.getSubrecordData(), 0);
 			
-			//KWDA FormID and PRPS = kwdaCount (pairs?)
+			//KWDA FormID and PRPS != kwdaCount  
 			sr = next(subrecords);
-			//KWDA FormID
 			sr = next(subrecords);
-			sr = next(subrecords);//PRPS
+			//PRPS
+			sr = next(subrecords);
 		}
 
+		//APPR
+		sr = next(subrecords);
+		
 		//DATA
 		sr = next(subrecords);
 
@@ -120,8 +123,6 @@ public class RACE extends RECO
 		//MODT
 		sr = next(subrecords);
 
-		//NAM2
-		sr = next(subrecords);
 
 		while (sr.getSubrecordType().equals("MTNM"))
 		{
@@ -153,8 +154,8 @@ public class RACE extends RECO
 		//PNAM
 		sr = next(subrecords);
 
-		//UNAM		not in fo4? or optional?
-		//sr = next(subrecords);
+		//UNAM		
+		sr = next(subrecords);
 
 		while (sr.getSubrecordType().equals("ATKD"))
 		{
@@ -172,7 +173,7 @@ public class RACE extends RECO
 		//INDX
 		sr = next(subrecords);
 		//MODL
-		sr = next(subrecords);
+/*		sr = next(subrecords);
 		//MODT
 		sr = next(subrecords);
 		//FNAM
@@ -205,7 +206,7 @@ public class RACE extends RECO
 		//MODL
 		sr = next(subrecords);
 		//MODT
-		sr = next(subrecords);
+		sr = next(subrecords);*/
 
 		 // many NAME subs
 

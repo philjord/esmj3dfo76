@@ -37,97 +37,52 @@ public class FLOR extends RECO
 			Subrecord sr = subrecords.get(i);
 			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("EDID"))
-			{
+			if (sr.getSubrecordType().equals("EDID")) {
 				EDID = new ZString(bs);
-			}
-			else if (sr.getSubrecordType().equals("OBND"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("FULL"))
-			{
+			} else if (sr.getSubrecordType().equals("OBND")) {
+			} else if (sr.getSubrecordType().equals("FULL")) {
 				FULL = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("MODL"))
-			{
+			} else if (sr.getSubrecordType().equals("MODL")) {
 				MODL = new MODL(bs);
-			}
-			else if (sr.getSubrecordType().equals("MODT"))
-			{
+			} else if (sr.getSubrecordType().equals("MODT")) {
 				MODL.addMODTSub(bs);
-			}
-			else if (sr.getSubrecordType().equals("PFIG"))
-			{
+			} else if (sr.getSubrecordType().equals("PFIG")) {
 				produceFormId = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("SNAM"))
-			{
+			} else if (sr.getSubrecordType().equals("SNAM")) {
 				soundId = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("PFPC"))
-			{
+			} else if (sr.getSubrecordType().equals("PFPC")) {
 				PFPC = new PFPC(bs);
+			} else if (sr.getSubrecordType().equals("PNAM")) {
+			} else if (sr.getSubrecordType().equals("RNAM")) {
+			} else if (sr.getSubrecordType().equals("FNAM")) {
+			} else if (sr.getSubrecordType().equals("VMAD")) {
+			} else if (sr.getSubrecordType().equals("MODS")) {
 			}
-			else if (sr.getSubrecordType().equals("PNAM"))
-			{
-
+			//FO4
+			else if (sr.getSubrecordType().equals("PTRN")) {
+			} else if (sr.getSubrecordType().equals("DEST")) {
+			} else if (sr.getSubrecordType().equals("DSTD")) {
+			} else if (sr.getSubrecordType().equals("DMDL")) {
+			} else if (sr.getSubrecordType().equals("DMDT")) {
+			} else if (sr.getSubrecordType().equals("DSTF")) {
+			} else if (sr.getSubrecordType().equals("KSIZ")) {
+			} else if (sr.getSubrecordType().equals("KWDA")) {
+			} else if (sr.getSubrecordType().equals("PRPS")) {
+			} else if (sr.getSubrecordType().equals("ATTX")) {
 			}
-			else if (sr.getSubrecordType().equals("RNAM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("FNAM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("VMAD"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("MODS"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("DEST"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("DSTD"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("DMDL"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("DMDT"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("DSTF"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("KWDA"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PRPS"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("ATTX"))
-			{
-				// new
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("DEFL")) {	
+			} else if (sr.getSubrecordType().equals("PAHD")) {		
+			} else if (sr.getSubrecordType().equals("CTRN")) {		
+			} else if (sr.getSubrecordType().equals("CITC")) {		
+			} else if (sr.getSubrecordType().equals("FLFG")) {		
+			} else if (sr.getSubrecordType().equals("FMAH")) {		
+			} else if (sr.getSubrecordType().equals("FMIH")) {		
+			} else if (sr.getSubrecordType().equals("FMAG")) {		
+			} else if (sr.getSubrecordType().equals("FMIG")) {		
 			}
 			else
 			{

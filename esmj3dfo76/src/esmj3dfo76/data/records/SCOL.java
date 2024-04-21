@@ -1,6 +1,6 @@
 package esmj3dfo76.data.records;
 
-import java.util.ArrayList;
+ 
 import java.util.List;
 
 import esfilemanager.common.data.record.Record;
@@ -17,7 +17,7 @@ public class SCOL extends RECO
 	public MODL MODL = null;
 
 	// pointers to forms of STAT that this collection was made up of, only useful for the GECK, not me.
-	public ArrayList<DistantSTAT> distantSTATs = new ArrayList<DistantSTAT>();
+	//public ArrayList<DistantSTAT> distantSTATs = new ArrayList<DistantSTAT>();
 
 	public SCOL(Record recordData)
 	{
@@ -47,18 +47,31 @@ public class SCOL extends RECO
 
 			else if (sr.getSubrecordType().equals("ONAM"))
 			{
-				distantSTATs.add(new DistantSTAT(bs));
+				//FO76 seems not correct definately not a formid anymore
+				//distantSTATs.add(new DistantSTAT(bs));
 			}
 			else if (sr.getSubrecordType().equals("DATA"))
 			{
-				distantSTATs.get(distantSTATs.size() - 1).setData(bs);
+				//distantSTATs.get(distantSTATs.size() - 1).setData(bs);
 			}
-			else if (sr.getSubrecordType().equals("FLTR"))
-			{
-				// new
-			}else if (sr.getSubrecordType().equals("FULL"))
-			{
-				// new
+			//FO4
+			else if (sr.getSubrecordType().equals("FLTR")) {
+			} else if (sr.getSubrecordType().equals("FULL")) {
+			}
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("ENLM")) {	
+			} else if (sr.getSubrecordType().equals("NAM1")) {		
+			} else if (sr.getSubrecordType().equals("LODP")) {		
+			} else if (sr.getSubrecordType().equals("XFLG")) {		
+			} else if (sr.getSubrecordType().equals("XALG")) {		
+			} else if (sr.getSubrecordType().equals("PRPS")) {		
+			} else if (sr.getSubrecordType().equals("MNAM")) {		
+			} else if (sr.getSubrecordType().equals("OPDS")) {		
+			} else if (sr.getSubrecordType().equals("DEFL")) {		
+			} else if (sr.getSubrecordType().equals("MODS")) {		
 			}
 			else
 			{

@@ -48,86 +48,44 @@ public class BOOK extends RECO
 			Subrecord sr = subrecords.get(i);
 			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("EDID"))
-			{
+			if (sr.getSubrecordType().equals("EDID")) {
 				EDID = new ZString(bs);
-			}
-			else if (sr.getSubrecordType().equals("OBND"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("FULL"))
-			{
+			} else if (sr.getSubrecordType().equals("OBND")) {
+			} else if (sr.getSubrecordType().equals("FULL")) {
 				FULL = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("DESC"))
-			{
+			} else if (sr.getSubrecordType().equals("DESC")) {
 				DESC = new DESC(bs);
-			}
-			else if (sr.getSubrecordType().equals("DATA"))
-			{
+			} else if (sr.getSubrecordType().equals("DATA")) {
 
-			}
-			else if (sr.getSubrecordType().equals("MODL"))
-			{
+			} else if (sr.getSubrecordType().equals("MODL")) {
 				MODL = new MODL(bs);
-			}
-			else if (sr.getSubrecordType().equals("MODT"))
-			{
+			} else if (sr.getSubrecordType().equals("MODT")) {
 				MODL.addMODTSub(bs);
-			}
-
-			else if (sr.getSubrecordType().equals("ANAM"))
-			{
+			} else if (sr.getSubrecordType().equals("ANAM")) {
 				ANAM = new ANAM(bs);
-			}
-			else if (sr.getSubrecordType().equals("ENAM"))
-			{
+			} else if (sr.getSubrecordType().equals("ENAM")) {
 				ENAM = new FormID(bs);
+			} else if (sr.getSubrecordType().equals("KSIZ")) {
+			} else if (sr.getSubrecordType().equals("KWDA")) {
+			} else if (sr.getSubrecordType().equals("INAM")) {
+			} else if (sr.getSubrecordType().equals("CNAM")) {
+			} else if (sr.getSubrecordType().equals("YNAM")) {
+			} else if (sr.getSubrecordType().equals("VMAD")) {
 			}
-
-			else if (sr.getSubrecordType().equals("KSIZ"))
-			{
+			//FO4
+			else if (sr.getSubrecordType().equals("DNAM")) {
+			} else if (sr.getSubrecordType().equals("PTRN")) {
+			} else if (sr.getSubrecordType().equals("ZNAM")) {
+			} else if (sr.getSubrecordType().equals("MODS")) {
+			} else if (sr.getSubrecordType().equals("FIMD")) {
 			}
-			else if (sr.getSubrecordType().equals("KWDA"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("INAM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("CNAM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("YNAM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("VMAD"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DNAM"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("ZNAM"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("MODS"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("FIMD"))
-			{
-				//new
+			//FO76
+			else if (sr.getSubrecordType().equals("XALG")) {	
+			} else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("VCRY")) {		
+			} else if (sr.getSubrecordType().equals("BTOF")) {		
 			}
 			else
 			{

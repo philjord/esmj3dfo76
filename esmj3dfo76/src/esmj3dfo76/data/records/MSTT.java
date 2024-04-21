@@ -42,75 +42,32 @@ public class MSTT extends RECO
 			{
 				MODL.addMODSSub(bs);
 			}
-			else if (sr.getSubrecordType().equals("OBND"))
-			{
-
+			else if (sr.getSubrecordType().equals("OBND")) {
+			} else if (sr.getSubrecordType().equals("DATA")) {
+			} else if (sr.getSubrecordType().equals("SNAM")) {
+			} else if (sr.getSubrecordType().equals("DSTD")) {
+			} else if (sr.getSubrecordType().equals("DSTF")) {
+			} else if (sr.getSubrecordType().equals("DMDL")) {
+			} else if (sr.getSubrecordType().equals("DMDT")) {
+			} else if (sr.getSubrecordType().equals("DEST")) {
+			} else if (sr.getSubrecordType().equals("FULL")) {
+			} else if (sr.getSubrecordType().equals("VMAD")) {
+			} else if (sr.getSubrecordType().equals("KSIZ")) {
+			} else if (sr.getSubrecordType().equals("KWDA")) {
+			} else if (sr.getSubrecordType().equals("DSTA")) {
+			} else if (sr.getSubrecordType().equals("DMDS")) {
+			} else if (sr.getSubrecordType().equals("MODC")) {
+			} else if (sr.getSubrecordType().equals("PRPS")) {
+			} else if (sr.getSubrecordType().equals("PTRN")) {
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
-			{
-
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("PHST")) {	
+			} else if (sr.getSubrecordType().equals("XALG")) {		
+			} else if (sr.getSubrecordType().equals("DEFL")) {		
 			}
-			else if (sr.getSubrecordType().equals("SNAM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DSTD"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DSTF"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DMDL"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DMDT"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DEST"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("FULL"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("VMAD"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("KWDA"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DSTA"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("DMDS"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("MODC"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("PRPS"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-
-			}
-
 			else
 			{
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);

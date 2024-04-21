@@ -125,22 +125,25 @@ public class MISC extends RECO
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getSubrecordType().equals("CVPA"))
-			{
-				// new
+			//FO4
+			else if (sr.getSubrecordType().equals("CVPA")) {
+			} else if (sr.getSubrecordType().equals("PTRN")) {
+			} else if (sr.getSubrecordType().equals("CDIX")) {
+			} else if (sr.getSubrecordType().equals("FIMD")) {
 			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("CDIX"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("FIMD"))
-			{
-				// new
-			}
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("SNTP")) {	
+			} else if (sr.getSubrecordType().equals("VCRY")) {		
+			} else if (sr.getSubrecordType().equals("MCQP")) {		
+			} else if (sr.getSubrecordType().equals("AQIC")) {		
+			} else if (sr.getSubrecordType().equals("DSTA")) {		
+			} else if (sr.getSubrecordType().equals("XALG")) {		
+			} else if (sr.getSubrecordType().equals("DIQO")) {		
+			} else if (sr.getSubrecordType().equals("DSTA")) {		
+			} 
 			else
 			{
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);

@@ -54,7 +54,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		super(npc_, false);
 		
 		//TODO: NPC_ very much disabled
-		//if(true)return;
+		if(true)return;
 
 		female = npc_.ACBS.isFemale();
 

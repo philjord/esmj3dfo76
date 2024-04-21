@@ -94,33 +94,22 @@ public class LIGH extends CommonLIGH
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM0"))
-			{
-				// new
+			//FO4
+			else if (sr.getSubrecordType().equals("NAM0")) {
+			} else if (sr.getSubrecordType().equals("LNAM")) {
+			} else if (sr.getSubrecordType().equals("WGDR")) {
+			} else if (sr.getSubrecordType().equals("PTRN")) {
+			} else if (sr.getSubrecordType().equals("KSIZ")) {
+			} else if (sr.getSubrecordType().equals("KWDA")) {
+			} else if (sr.getSubrecordType().equals("PRPS")) {
 			}
-			else if (sr.getSubrecordType().equals("LNAM"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("WGDR"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("KWDA"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PRPS"))
-			{
-				// new
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {		
+			} else if (sr.getSubrecordType().equals("VCRY")) {	
+			} else if (sr.getSubrecordType().equals("LILS")) {		
+			} else if (sr.getSubrecordType().equals("ENLM")) {		
 			}
 			else
 			{

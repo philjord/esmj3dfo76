@@ -98,55 +98,39 @@ public class ACTI extends RECO
 			else if (sr.getSubrecordType().equals("SNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("PRPS"))
-			{
-				// new
+			//FO4
+			else if (sr.getSubrecordType().equals("PRPS")) {
+			} else if (sr.getSubrecordType().equals("RADR")) {
+			} else if (sr.getSubrecordType().equals("PTRN")) {
+			} else if (sr.getSubrecordType().equals("CTDA")) {
+			} else if (sr.getSubrecordType().equals("CITC")) {
+			} else if (sr.getSubrecordType().equals("STCP")) {
+			} else if (sr.getSubrecordType().equals("ATTX")) {
+			} else if (sr.getSubrecordType().equals("FTYP")) {
+			} else if (sr.getSubrecordType().equals("NTRM")) {
+			} else if (sr.getSubrecordType().equals("DAMC")) {
+			} else if (sr.getSubrecordType().equals("DSTA")) {
+			} else if (sr.getSubrecordType().equals("CIS1")) {
+			} else if (sr.getSubrecordType().equals("CIS2")) {
 			}
-			else if (sr.getSubrecordType().equals("RADR"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// new
-			}
-			else if (sr.getSubrecordType().equals("CTDA"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("CITC"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("STCP"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("ATTX"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("FTYP"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("NTRM"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("DAMC"))
-			{
-				//new
-			}
-			else if (sr.getSubrecordType().equals("DSTA"))
-			{
-				//new
-			}else if (sr.getSubrecordType().equals("CIS1"))
-			{
-				//new
-			}else if (sr.getSubrecordType().equals("CIS2"))
-			{
-				//new
+			
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLM")) {
+			} else if (sr.getSubrecordType().equals("ENLT")) {	
+			} else if (sr.getSubrecordType().equals("ENLS")) {		
+			} else if (sr.getSubrecordType().equals("AUUV")) {	
+			} else if (sr.getSubrecordType().equals("PAHD")) {		
+			} else if (sr.getSubrecordType().equals("CTRN")) {		
+			} else if (sr.getSubrecordType().equals("NVNM")) {		
+			} else if (sr.getSubrecordType().equals("NAM1")) {		
+			} else if (sr.getSubrecordType().equals("LODP")) {		
+			} else if (sr.getSubrecordType().equals("CNDC")) {		
+			} else if (sr.getSubrecordType().equals("XALG")) {		
+			} else if (sr.getSubrecordType().equals("QSTI")) {		
+			} else if (sr.getSubrecordType().equals("SNTP")) {		
+			} else if (sr.getSubrecordType().equals("HGLB")) {		
+			} else if (sr.getSubrecordType().equals("MNAM")) {		
+			} else if (sr.getSubrecordType().equals("DEFL")) {		
 			}
 			else
 			{
