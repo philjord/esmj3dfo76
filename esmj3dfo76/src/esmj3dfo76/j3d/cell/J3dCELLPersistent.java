@@ -45,13 +45,13 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 
 	public J3dCELLPersistent(CommonWRLD wrld, IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, cellRecord, worldId, children, makePhys, mediaSources);
+		super(master, cellRecord, worldId, makePhys, mediaSources);
 		this.wrld = wrld;
 
 		setCapability(Group.ALLOW_CHILDREN_WRITE);
 		setCapability(Group.ALLOW_CHILDREN_EXTEND);
 
-		indexRecords();
+		indexRecords(children);
 		addChild(gridSpaces);
 
 		if (!makePhys)
@@ -69,7 +69,7 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 
 	}
 
-	private void indexRecords()
+	private void indexRecords(List<Record> children)
 	{
 		//int maxX, maxY, minX, minY = 0;
 
