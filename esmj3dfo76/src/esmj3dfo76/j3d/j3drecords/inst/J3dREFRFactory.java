@@ -107,6 +107,8 @@ public class J3dREFRFactory
 		return null;
 	}
 
+	//Fallout76 file_format!
+	//https://fallout.wiki/wiki/User:Eckserah/File_Formats/Fallout_76_Mod_File_Format
 	public static Node makeJ3DReferFar(REFR refr, IRecordStore master, MediaSources mediaSources)
 	{
 		// does a parent enablage flag exists, and is is defaulted to off?
