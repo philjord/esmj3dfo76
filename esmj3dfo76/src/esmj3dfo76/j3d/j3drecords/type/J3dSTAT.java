@@ -6,7 +6,6 @@ import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Link;
 import org.jogamp.java3d.Node;
 import org.jogamp.java3d.SharedGroup;
-import org.jogamp.java3d.utils.shader.Cube;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;
@@ -70,10 +69,10 @@ public class J3dSTAT extends J3dRECOType
 					myNodes.add(node);				 
 
 				//add a blank for final fade out	
-				BranchGroup bg = new BranchGroup();
+				/*BranchGroup bg = new BranchGroup();
 				BranchGroup blank = new BranchGroup();
 				bg.addChild(SHOW_FADE_OUT_MARKER ? new Cube(0.1) : blank);
-				myNodes.add(bg);
+				myNodes.add(bg);*/
 
 			}
 			else
@@ -113,11 +112,16 @@ public class J3dSTAT extends J3dRECOType
 			}
 			
 			
-			float[] dists = calcDistances(BethRenderSettings.getItemFade());
-			dl = new BetterDistanceLOD(this, myNodes, dists);
-			addChild(dl);
-			dl.setSchedulingBounds(Utils3D.defaultBounds);
-			dl.setEnable(true);
+			if(myNodes.size() > 1) {
+				float[] dists = calcDistances(BethRenderSettings.getItemFade());
+				dl = new BetterDistanceLOD(this, myNodes, dists);
+				addChild(dl);
+				dl.setSchedulingBounds(Utils3D.defaultBounds);
+				dl.setEnable(true);
+			} else {
+				if(myNodes.size() == 1 && myNodes.get(0) != null)
+					addChild(myNodes.get(0));
+			}
 		}
 
 		//TODO: I ant to call fireIdle about now to be honest
