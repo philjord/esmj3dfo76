@@ -103,12 +103,13 @@ public class J3dNPC_ extends J3dRECOTypeCha
 			fileNames.add(weapStr);
 
 			ArrayList<String> idleAnimations = new ArrayList<String>();
-			//idleAnimations.add(ESConfig.TES_MESH_PATH + "actors\\character\\animations\\mt_idle_a_base.kf");
+			idleAnimations.add(ESConfig.TES_MESH_PATH + "actors\\character\\animations\\mt_idle_a_base.kf");
 
  
-			addIdleAnimations( idleAnimations, mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + "actors\\character\\animations"), new String[]{"idle"});
+			//addIdleAnimations( idleAnimations, mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + "actors\\character\\animations"), new String[]{"idle"});
 
-			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
+			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources);
+			nifCharacter.setIdleAnimations(idleAnimations);
 			addChild(nifCharacter);
 			
 			NifJ3dSkeletonRoot.showBoneMarkers = true;
@@ -322,9 +323,10 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		assetPath = ESConfig.TES_MESH_PATH + assetPath;
 
 		ArrayList<String> idleAnimations = new ArrayList<String>();
-		idleAnimations.addAll(mediaSources.getMeshSource().getFilesInFolder(assetPath + "\\animations"));
+		//idleAnimations.addAll(mediaSources.getMeshSource().getFilesInFolder(assetPath + "\\animations"));
 
-		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
+		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources);
+		nifCharacter.setIdleAnimations(idleAnimations);
 		addChild(nifCharacter);
 		
 		setOutline(new Color3f(1.0f, 1.0f, 0f));
