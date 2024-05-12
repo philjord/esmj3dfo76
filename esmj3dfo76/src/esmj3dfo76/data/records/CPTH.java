@@ -5,7 +5,7 @@ import java.util.List;
 import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
-import esmj3d.data.shared.subrecords.ZString;
+
 /**
  * Camera Path
  * not found in  https://falloutck.uesp.net/wiki/Object_Class_List 
@@ -15,7 +15,7 @@ import esmj3d.data.shared.subrecords.ZString;
 public class CPTH extends RECO
 {
 
-	public ZString EDID = null;
+	
 
 	public CPTH(Record recordData)
 	{
@@ -29,7 +29,7 @@ public class CPTH extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("CTDA"))
 			{

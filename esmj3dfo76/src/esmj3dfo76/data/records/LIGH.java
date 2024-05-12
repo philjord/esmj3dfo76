@@ -9,7 +9,7 @@ import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.CommonLIGH;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
+
 import tools.io.ESMByteConvert;
 /**
  * https://falloutck.uesp.net/wiki/Light
@@ -23,7 +23,7 @@ public class LIGH extends CommonLIGH
 	 * Default 0x00000040 = Flicker Slow 0x00000080 = Pulse 0x00000100 = Pulse Slow 0x00000200 = Spot Light 0x00000400 =
 	 * Spot Shadow
 	 */
-	public ZString EDID = null;
+	
 
 	public FormID FULL;
 
@@ -43,7 +43,7 @@ public class LIGH extends CommonLIGH
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{

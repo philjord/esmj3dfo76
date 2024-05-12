@@ -5,13 +5,13 @@ import java.util.List;
 import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
-import esmj3d.data.shared.subrecords.ZString;
+
 /**
  * SMEN 	SM Event Node
  */
 public class SMEN extends RECO
 {
-	public ZString EDID;
+	
 
 	public SMEN(Record recordData)
 	{
@@ -24,7 +24,7 @@ public class SMEN extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("PNAM")){}
 			else if (sr.getSubrecordType().equals("SNAM")){}

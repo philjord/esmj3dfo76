@@ -5,13 +5,13 @@ import java.util.List;
 import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
-import esmj3d.data.shared.subrecords.ZString;
+
 /**
  * SPGD 	Shader Particle Geometry
  */
 public class SPGD extends RECO
 {
-	public ZString EDID;
+	
 
 	public SPGD(Record recordData)
 	{
@@ -24,7 +24,7 @@ public class SPGD extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("DATA")){}
 			else if (sr.getSubrecordType().equals("ICON")){}

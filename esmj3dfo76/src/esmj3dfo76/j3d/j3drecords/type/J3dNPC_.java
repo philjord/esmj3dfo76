@@ -61,7 +61,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		organiseNPC_(npc_, master);
 
 		// are we a char or in fact a bit of a crea?
-		if (race.maleSkeleton.str.toLowerCase().indexOf("actors\\character\\") != -1)
+		if (race.maleSkeleton.toLowerCase().indexOf("actors\\character\\") != -1)
 		{
 			// this is the start of an idea to pull body data out
 			//BPTD bptd = new BPTD(master.getRecord(race.GNAM.formId));
@@ -89,7 +89,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 			}
 
 
-			String skeletonNifFile = ESConfig.TES_MESH_PATH + (female ? race.femaleSkeleton.str : race.maleSkeleton.str);//"actors\\character\\character assets female\\skeleton_female.nif";
+			String skeletonNifFile = ESConfig.TES_MESH_PATH + (female ? race.femaleSkeleton : race.maleSkeleton);//"actors\\character\\character assets female\\skeleton_female.nif";
 
 			ArrayList<String> fileNames = new ArrayList<String>();
 
@@ -133,7 +133,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		if (npc != null)
 		{
 			race = new RACE(master.getRecord(npc.RNAM.formId));
-			//System.out.println("organiseNPC_ " + npc.EDID.str);
+			//System.out.println("organiseNPC_ " + npc.EDID);
 			organiseTemplate(npc.TPLT, master);
 			organiseCNTOs(npc.CNTOs, master);
 
@@ -277,10 +277,10 @@ public class J3dNPC_ extends J3dRECOTypeCha
 	private void addARMO(ARMO armo, IRecordStore master)
 	{
 		ARMA arma = new ARMA(master.getRecord(armo.MODL.formId));
-		String nifStr = arma.MOD2.model.str;
+		String nifStr = arma.MOD2.model;
 		if (female && arma.MOD3 != null)
 		{
-			nifStr = arma.MOD3.model.str;
+			nifStr = arma.MOD3.model;
 		}
 
 		//FIXME: these are gone
@@ -294,7 +294,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 
 	private void addWEAP(WEAP weap)
 	{
-		weapStr = weap.MODL.model.str;
+		weapStr = weap.MODL.model;
 		//System.out.println("WEAP " + weapStr);
 	}
 
@@ -308,17 +308,17 @@ public class J3dNPC_ extends J3dRECOTypeCha
 	 */
 	private void j3dCREA(IRecordStore master, MediaSources mediaSources)
 	{
-		String skeletonNifFile = ESConfig.TES_MESH_PATH + race.maleSkeleton.str;
+		String skeletonNifFile = ESConfig.TES_MESH_PATH + race.maleSkeleton;
 
 		ARMO skin = new ARMO(master.getRecord(race.WNAM.formId));
 		ARMA arma = new ARMA(master.getRecord(skin.MODL.formId));
-		String nifStr = arma.MOD2.model.str;
+		String nifStr = arma.MOD2.model;
 
 		ArrayList<String> fileNames = new ArrayList<String>();
 		fileNames.add(nifStr);
 
 		// get animation from asset path badly
-		String assetPath = race.maleSkeleton.str.substring(0, race.maleSkeleton.str.lastIndexOf("\\"));
+		String assetPath = race.maleSkeleton.substring(0, race.maleSkeleton.lastIndexOf("\\"));
 		assetPath = assetPath.substring(0, assetPath.lastIndexOf("\\"));
 		assetPath = ESConfig.TES_MESH_PATH + assetPath;
 

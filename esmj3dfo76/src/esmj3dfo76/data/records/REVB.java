@@ -5,13 +5,13 @@ import java.util.List;
 import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
-import esmj3d.data.shared.subrecords.ZString;
+
 /**
  * https://falloutck.uesp.net/wiki/Reverb_Parameters
  */
 public class REVB extends RECO
 {
-	public ZString EDID;
+	
 
 	public REVB(Record recordData)
 	{
@@ -24,7 +24,7 @@ public class REVB extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("DATA")){}
 			else

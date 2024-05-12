@@ -9,13 +9,13 @@ import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.MODS;
 import esmj3d.data.shared.subrecords.MODT;
 import esmj3d.data.shared.subrecords.OBND;
-import esmj3d.data.shared.subrecords.ZString;
+
 
 /**
  * https://falloutck.uesp.net/wiki/Static
  */
 public class STAT extends RECO {
-	public ZString	EDID;
+	public String	EDID;
 
 	public OBND		OBND;
 
@@ -44,7 +44,7 @@ public class STAT extends RECO {
 			byte[] bs = sr.getSubrecordData();
 
 			if (sr.getSubrecordType().equals("EDID")) {
-				EDID = new ZString(bs);
+				setEDID(bs);
 			} else if (sr.getSubrecordType().equals("OBND")) {
 				OBND = new OBND(bs);
 			} else if (sr.getSubrecordType().equals("MODL")) {
@@ -99,7 +99,7 @@ public class STAT extends RECO {
 
 	@Override
 	public String showDetails() {
-		return "STAT : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model.str;
+		return "STAT : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID + " : " + MODL.model;
 	}
 
 }

@@ -7,7 +7,7 @@ import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
+
 import esmj3dfo76.data.subrecords.BODT;
 
 /**
@@ -15,7 +15,7 @@ import esmj3dfo76.data.subrecords.BODT;
  */
 public class ARMA extends RECO
 {
-	public ZString EDID;
+	
 
 	public FormID RNAM;
 
@@ -56,7 +56,7 @@ public class ARMA extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND"))
 			{

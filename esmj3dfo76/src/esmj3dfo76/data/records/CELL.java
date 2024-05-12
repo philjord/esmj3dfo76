@@ -108,12 +108,6 @@ public class CELL extends CommonCELL
 		}
 	}
 
-	@Override
-	public String showDetails()
-	{
-		return "CELL : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str;
-	}
-
 	public class DATA
 	{
 		public byte[] data;

@@ -63,7 +63,7 @@ public class J3dREFRFactory
 		if (modl != null)
 		{
 			J3dRECODynInst j3dinst = new J3dRECODynInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeDynamic(reco, modl.model.str, makePhys, mediaSources));
+			j3dinst.setJ3dRECOType(new J3dRECOTypeDynamic(reco, modl.model, makePhys, mediaSources));
 			return j3dinst;
 		}
 		else
@@ -78,7 +78,7 @@ public class J3dREFRFactory
 		if (modl != null)
 		{
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeActionable(reco, modl.model.str, makePhys, mediaSources));
+			j3dinst.setJ3dRECOType(new J3dRECOTypeActionable(reco, modl.model, makePhys, mediaSources));
 			return j3dinst;
 		}
 		else
@@ -96,7 +96,7 @@ public class J3dREFRFactory
 			if ((!reco.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
 				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-				j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(reco, modl.model.str, makePhys, mediaSources));
+				j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(reco, modl.model, makePhys, mediaSources));
 				return j3dinst;
 			}
 		}
@@ -168,13 +168,13 @@ public class J3dREFRFactory
 			//SCOL are just exactly like STATS
 			SCOL scol = new SCOL(baseRecord);
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
-			j3dinst.addNodeChild(new J3dRECOTypeStatic(scol, scol.MODL.model.str, false, mediaSources));
+			j3dinst.addNodeChild(new J3dRECOTypeStatic(scol, scol.MODL.model, false, mediaSources));
 			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
 			TREE tree = new TREE(baseRecord);
-			String treeNif = tree.MODL.model.str;
+			String treeNif = tree.MODL.model;
 			Node node = TreeMaker.makeTreeFar(refr, false, mediaSources, treeNif, 0, 0);
 			return node;
 		}
@@ -202,10 +202,10 @@ public class J3dREFRFactory
 		{
 			STAT stat = new STAT(baseRecord);				
 
-			//if(stat.MODL.model.str.indexOf("Effects") != -1)
+			//if(stat.MODL.model.indexOf("Effects") != -1)
 			//	return null;
 			if(outputModelNames)
-				System.out.println("stat.MODL.model.str " +stat.MODL.model.str);		
+				System.out.println("stat.MODL.model " +stat.MODL.model);		
 			
 			if (stat.MODL != null && (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
@@ -225,10 +225,10 @@ public class J3dREFRFactory
 			MSTT mstt = new MSTT(baseRecord);
 			
 			if(outputModelNames)
-				System.out.println("mstt.MODL.model.str " +mstt.MODL.model.str);
+				System.out.println("mstt.MODL.model " +mstt.MODL.model);
 			
 			// my ambient effect have bad shaders so look craz bad
-			if(mstt.MODL.model.str.indexOf("Effects\\Ambient\\") != -1)
+			if(mstt.MODL.model.indexOf("Effects\\Ambient\\") != -1)
 				return null;
 			
 			return makeJ3dRECODynInst(refr, mstt, mstt.MODL, makePhys, mediaSources);
@@ -238,14 +238,14 @@ public class J3dREFRFactory
 			//SCOL are just exactly like STATS
 			SCOL scol = new SCOL(baseRecord);
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
-			j3dinst.addNodeChild(new J3dRECOTypeStatic(scol, scol.MODL.model.str, false, mediaSources));
+			j3dinst.addNodeChild(new J3dRECOTypeStatic(scol, scol.MODL.model, false, mediaSources));
 			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("ACTI"))
 		{
 			ACTI acti = new ACTI(baseRecord);
 			if(outputModelNames)
-				System.out.println("acti.MODL.model.str " +acti.MODL.model.str);
+				System.out.println("acti.MODL.model " +acti.MODL.model);
 			if (acti.MODL != null && (!acti.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers())){
 				return makeJ3dRECOActionInst(refr, acti, acti.MODL, makePhys, mediaSources);
 			}			
@@ -282,7 +282,7 @@ public class J3dREFRFactory
 		{
 			CONT cont = new CONT(baseRecord);
 			if(outputModelNames)
-				System.out.println("cont.MODL.model.str " +cont.MODL.model.str);
+				System.out.println("cont.MODL.model " +cont.MODL.model);
 			if (cont.MODL != null && (!cont.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers())) {
 				return new J3dRECOStatInst(refr, new J3dCONT(cont, makePhys, mediaSources), true, makePhys);
 			}
@@ -292,7 +292,7 @@ public class J3dREFRFactory
 		{
 			FURN furn = new FURN(baseRecord);
 			if(outputModelNames)
-				System.out.println("furn.MODL.model.str " +furn.MODL.model.str);
+				System.out.println("furn.MODL.model " +furn.MODL.model);
 			if (furn.MODL != null && (!furn.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers())) {
 				return makeJ3dRECOActionInst(refr, furn, furn.MODL, makePhys, mediaSources);
 			}
@@ -348,13 +348,13 @@ public class J3dREFRFactory
 		{
 			LIGH ligh = new LIGH(baseRecord);
 			if(outputModelNames)
-				System.out.println("ligh.MODL.model.str " +ligh.MODL.model.str);
+				System.out.println("ligh.MODL.model " +ligh.MODL.model);
 			return new J3dRECOStatInst(refr, new J3dGeneralLIGH(ligh, makePhys, mediaSources), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
 			TREE tree = new TREE(baseRecord);
-			String treeNif = tree.MODL.model.str;
+			String treeNif = tree.MODL.model;
 			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, 0, 0, false);
 			return j3dinst;
 		}
@@ -371,21 +371,21 @@ public class J3dREFRFactory
 			//weird things like intgenericB?
 			//ASPC aspc = new ASPC(baseRecord);	
 			//if(outputModelNames)
-			//	System.out.println("aspc.MODL.model.str " + aspc.MODL.model.str);
+			//	System.out.println("aspc.MODL.model " + aspc.MODL.model);
 		}
 		else if (baseRecord.getRecordType().equals("IDLM"))
 		{
 			//markers related to NPCs
 			//IDLM idlm = new IDLM(baseRecord);		
 			//if(outputModelNames)
-			//	System.out.println("idlm.MODL.model.str " + idlm.MODL.model.str);
+			//	System.out.println("idlm.MODL.model " + idlm.MODL.model);
 		}
 		else if (baseRecord.getRecordType().equals("TXST"))
 		{
 			//lots but texture set so why refr?
 			//TXST txst = new TXST(baseRecord);
 			//if(outputModelNames)
-			//	System.out.println("txst.MODL.model.str " + txst.MODL.model.str);
+			//	System.out.println("txst.MODL.model " + txst.MODL.model);
 		}
 		else if (baseRecord.getRecordType().equals("BNDS"))
 		{

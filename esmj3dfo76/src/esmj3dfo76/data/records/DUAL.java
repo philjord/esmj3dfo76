@@ -5,13 +5,13 @@ import java.util.List;
 import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
-import esmj3d.data.shared.subrecords.ZString;
+
 /**
  * https://falloutck.uesp.net/wiki/Dual_Cast_Data
  */
 public class DUAL extends RECO
 {
-	public ZString EDID;
+	
 
 	public DUAL(Record recordData)
 	{
@@ -24,7 +24,7 @@ public class DUAL extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND")){}
 			else if (sr.getSubrecordType().equals("DATA")){}

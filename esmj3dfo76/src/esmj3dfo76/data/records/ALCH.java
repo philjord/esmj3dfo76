@@ -7,13 +7,13 @@ import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
+
 /**
  * https://falloutck.uesp.net/wiki/Potion
  */
 public class ALCH extends RECO
 {
-	public ZString EDID;
+	
 
 	public FormID FULL;
 
@@ -30,7 +30,7 @@ public class ALCH extends RECO
 			byte[] bs = sr.getSubrecordData();
 
 			if (sr.getSubrecordType().equals("EDID")) {
-				EDID = new ZString(bs);
+				setEDID(bs);
 			} else if (sr.getSubrecordType().equals("OBND")) {
 			} else if (sr.getSubrecordType().equals("FULL")) {
 				FULL = new FormID(bs);
@@ -40,7 +40,7 @@ public class ALCH extends RECO
 				MODL.addMODTSub(bs);
 			} else if (sr.getSubrecordType().equals("MODS")) {
 				MODL.addMODSSub(bs);
-			}else if (sr.getSubrecordType().equals("DATA")) {
+			} else if (sr.getSubrecordType().equals("DATA")) {
 			} else if (sr.getSubrecordType().equals("ENIT")) {
 			} else if (sr.getSubrecordType().equals("EFID")) {
 			} else if (sr.getSubrecordType().equals("EFIT")) {
@@ -69,26 +69,9 @@ public class ALCH extends RECO
 			} else if (sr.getSubrecordType().equals("CODV")) {		
 			} else if (sr.getSubrecordType().equals("MIID")) {		
 			} 
-			else
-			{
+			else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
-		}
-	}
-
-	@Override
-	public String showDetails()
-	{
-		return "ALCH : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str;
-	}
-
-	public class DATA
-	{
-		public byte[] data;
-
-		private DATA(byte[] bytes)
-		{
-			data = bytes;
 		}
 	}
 }

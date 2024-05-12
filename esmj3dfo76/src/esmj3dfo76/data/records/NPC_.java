@@ -9,7 +9,7 @@ import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.OBND;
-import esmj3d.data.shared.subrecords.ZString;
+
 import esmj3dfo76.data.shared.subrecords.KeyWords;
 import esmj3dfo76.data.subrecords.ACBS;
 import esmj3dfo76.data.subrecords.AIDT;
@@ -20,7 +20,7 @@ import esmj3dfo76.data.subrecords.SNAM;
  */
 public class NPC_ extends RECO
 {
-	public ZString EDID = null;
+	
 
 	public OBND OBND;
 
@@ -97,7 +97,7 @@ public class NPC_ extends RECO
 			byte[] bs = sr.getSubrecordData();
 
 			if (sr.getSubrecordType().equals("EDID")) {
-				EDID = new ZString(bs);
+				setEDID(bs);
 			} else if (sr.getSubrecordType().equals("VMAD")) {
 			} else if (sr.getSubrecordType().equals("OBND")) {
 				OBND = new OBND(bs);

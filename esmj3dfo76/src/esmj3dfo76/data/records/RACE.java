@@ -8,7 +8,6 @@ import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.ZString;
-import esmj3dfo76.data.subrecords.BODT;
 import tools.io.ESMByteConvert;
 /**
  * https://falloutck.uesp.net/wiki/Race
@@ -31,7 +30,7 @@ import tools.io.ESMByteConvert;
  */
 public class RACE extends RECO
 {
-	public ZString EDID = null;
+	
 
 	public FormID FULL = null;
 	
@@ -41,9 +40,9 @@ public class RACE extends RECO
 
 	public FormID BOD2 = null;
 
-	public ZString maleSkeleton = null;
+	public String maleSkeleton = null;
 
-	public ZString femaleSkeleton = null;
+	public String femaleSkeleton = null;
 
 	public FormID GNAM = null;
 
@@ -54,7 +53,7 @@ public class RACE extends RECO
 		List<Subrecord> subrecords = recordData.getSubrecords();
 
 		Subrecord sr = next(subrecords);
-		EDID = new ZString(sr.getSubrecordData());
+		setEDID(sr.getSubrecordData());
 		sr = next(subrecords);
 
 		if (sr.getSubrecordType().equals("FULL"))
@@ -108,7 +107,7 @@ public class RACE extends RECO
 		sr = next(subrecords);
 
 		//ANAM
-		maleSkeleton = new ZString(sr.getSubrecordData());
+		maleSkeleton = ZString.toString(sr.getSubrecordData());
 		sr = next(subrecords);
 
 		//MODT
@@ -117,7 +116,7 @@ public class RACE extends RECO
 		//FNAM
 		sr = next(subrecords);
 
-		femaleSkeleton = new ZString(sr.getSubrecordData());
+		femaleSkeleton = ZString.toString(sr.getSubrecordData());
 		sr = next(subrecords);
 
 		//MODT

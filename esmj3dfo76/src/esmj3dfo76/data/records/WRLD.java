@@ -78,11 +78,4 @@ public class WRLD extends CommonWRLD
 			}
 		}
 	}
-
-	@Override
-	public String showDetails()
-	{
-		return "WRLD : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str;
-	}
-
 }

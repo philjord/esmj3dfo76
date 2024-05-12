@@ -15,7 +15,7 @@ import esmj3dfo76.data.shared.subrecords.KeyWords;
  */
 public class MISC extends RECO
 {
-	public ZString EDID;
+	
 
 	public OBND OBND;
 
@@ -25,9 +25,9 @@ public class MISC extends RECO
 
 	public DATA DATA;
 
-	public ZString ICON;
+	public String ICON;
 
-	public ZString MICO;
+	public String MICO;
 
 	public FormID YNAM;
 
@@ -47,7 +47,7 @@ public class MISC extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("VMAD"))
 			{
@@ -75,11 +75,11 @@ public class MISC extends RECO
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICON = new ZString(bs);
+				ICON = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("MICO"))
 			{
-				MICO = new ZString(bs);
+				MICO = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("DEST"))
 			{
@@ -154,7 +154,7 @@ public class MISC extends RECO
 	@Override
 	public String showDetails()
 	{
-		return "MISC : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model.str;
+		return super.showDetails() + " : " + MODL.model;
 	}
 
 	public class DATA

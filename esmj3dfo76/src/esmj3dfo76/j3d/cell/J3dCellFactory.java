@@ -33,11 +33,11 @@ public class J3dCellFactory extends J3dICellFactory
 		if (wrld.WNAM != null && wrld.WNAM.formId != -1)
 		{
 			WRLD parentWrld = getWRLD(wrld.WNAM.formId);
-			lodWorldName = parentWrld.EDID.str;
+			lodWorldName = parentWrld.getEDID();
 		}
 		else
 		{
-			lodWorldName = wrld.EDID.str;
+			lodWorldName = wrld.getEDID();
 		}
 		return lodWorldName;
 	}

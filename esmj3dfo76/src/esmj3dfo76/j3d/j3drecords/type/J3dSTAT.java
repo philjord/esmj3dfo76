@@ -45,18 +45,18 @@ public class J3dSTAT extends J3dRECOType
 	
 	public J3dSTAT(STAT stat, boolean makePhys, MediaSources mediaSources)
 	{
-		super(stat, stat.MODL.model.str);
+		super(stat, stat.MODL.model);
 
 		//TEST! if return is not commented mind you
-		//|| stat.MODL.model.str.indexOf("CliffSm01.nif") == -1 is fixed?
-		//if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag) || stat.MODL.model.str.indexOf("Firewood") == -1)
+		//|| stat.MODL.model.indexOf("CliffSm01.nif") == -1 is fixed?
+		//if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag) || stat.MODL.model.indexOf("Firewood") == -1)
 		{
 			//	return;
 		}
 
 		if (makePhys)
 		{
-			Node node = J3dRECOType.loadNif(stat.MODL.model.str, makePhys, mediaSources);
+			Node node = J3dRECOType.loadNif(stat.MODL.model, makePhys, mediaSources);
 			addChild(node);
 		}
 		else
@@ -64,7 +64,7 @@ public class J3dSTAT extends J3dRECOType
 
 			if (!stat.isFlagSet(RECO.VisibleWhenDistant_Flag))
 			{
-				BranchGroup node = loadNifSharable(stat.MODL.model.str,  mediaSources);
+				BranchGroup node = loadNifSharable(stat.MODL.model,  mediaSources);
 				if(node != null)
 					myNodes.add(node);				 
 
@@ -77,7 +77,7 @@ public class J3dSTAT extends J3dRECOType
 			}
 			else
 			{
-				BranchGroup node = loadNifSharable(stat.MODL.model.str, mediaSources);
+				BranchGroup node = loadNifSharable(stat.MODL.model, mediaSources);
 				myNodes.add(node);
 
 				if (stat.lodModel1 != null && stat.lodModel1.length() > 0)
