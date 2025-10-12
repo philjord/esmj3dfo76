@@ -78,28 +78,30 @@ public class J3dCellFactory extends J3dICellFactory
 	}
 
 	@Override
-	public J3dCELLPersistent makeBGWRLDPersistent(int formId, boolean makePhys)
-	{
+	public J3dCELLPersistent makeBGWRLDPersistent(int formId, boolean makePhys) {
 
 		WRLD wrld = getWRLD(formId);
-		if (wrld != null)
-		{
+		if (wrld != null) {
 
 			WRLDChildren children = esmManager.getWRLDChildren(formId);
-
-			PluginRecord cell = children.getCell();
-			if (cell != null)
-			{
-				PluginGroup cellChildren = children.getCellChildren();
-				if (cellChildren != null)
-				{
-					return new J3dCELLPersistent(wrld, this, cell, formId, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_PERSISTENT),
-							makePhys, mediaSources);
+			//FO76 and anchorage both have no children WRLD records
+			if (children != null) {
+				PluginRecord cell = children.getCell();
+				if (cell != null) {
+					PluginGroup cellChildren = children.getCellChildren();
+					if (cellChildren != null) {
+						return new J3dCELLPersistent(wrld, this, cell, formId,
+								ESMUtils.getChildren(cellChildren, PluginGroup.CELL_PERSISTENT), makePhys,
+								mediaSources);
+					}
+				} else {
+					System.out.println("no cell for wrld " + formId);
 				}
+			} else {
+				System.out.println("no children for wrld " + formId);
 			}
-		}
-		else
-		{
+
+		} else {
 			System.out.println("makeBGWRLDPersistent bad formId not wrld " + formId);
 		}
 

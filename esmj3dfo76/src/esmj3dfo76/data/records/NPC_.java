@@ -229,9 +229,12 @@ public class NPC_ extends RECO
 			} else if (sr.getSubrecordType().equals("CVT2")) {	
 			} else if (sr.getSubrecordType().equals("FTYP")) {	
 			} else if (sr.getSubrecordType().equals("PFRN")) {	
-			}
-			else
-			{
+			} else if (sr.getSubrecordType().equals("DEFL")) {	
+			} else if (sr.getSubrecordType().equals("CS2H")) {	
+			} else if (sr.getSubrecordType().equals("CS2D")) {	
+			} else if (sr.getSubrecordType().equals("CS2E")) {	
+			} else if (sr.getSubrecordType().equals("CS2F")) {	
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 

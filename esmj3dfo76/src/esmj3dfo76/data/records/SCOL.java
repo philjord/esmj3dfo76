@@ -72,9 +72,8 @@ public class SCOL extends RECO
 			} else if (sr.getSubrecordType().equals("OPDS")) {		
 			} else if (sr.getSubrecordType().equals("DEFL")) {		
 			} else if (sr.getSubrecordType().equals("MODS")) {		
-			}
-			else
-			{
+			} else if (sr.getSubrecordType().equals("SNTP")) {		
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 

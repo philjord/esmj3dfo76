@@ -177,9 +177,13 @@ public class J3dREFRFactory
 			String treeNif = tree.MODL.model;
 			Node node = TreeMaker.makeTreeFar(refr, false, mediaSources, treeNif, 0, 0);
 			return node;
-		}
-		else
-		{
+		} else if (baseRecord.getRecordType().equals("MISC")) {
+			//TODO: i should look into this
+		} else if (baseRecord.getRecordType().equals("FURN")) {
+			//TODO: i should look into this
+		} else if (baseRecord.getRecordType().equals("ACTI")) {
+			//TODO: i should look into this
+		} else {
 			System.out.println("Far REFR record type not converted to j3d " + baseRecord.getRecordType());
 		}
 

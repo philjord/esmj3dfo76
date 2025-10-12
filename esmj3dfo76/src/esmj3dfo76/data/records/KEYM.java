@@ -74,12 +74,17 @@ public class KEYM extends RECO
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PTRN"))
-			{
-				// FO4
+			// FO4
+			else if (sr.getSubrecordType().equals("PTRN")) {				
 			}
-			else
-			{
+			//FO76
+			else if (sr.getSubrecordType().equals("XALG")) {
+			} else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {
+			} else if (sr.getSubrecordType().equals("AUUV")) {
+			} else if (sr.getSubrecordType().equals("VCRY")) {
+			} else if (sr.getSubrecordType().equals("AQIC")) {
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}

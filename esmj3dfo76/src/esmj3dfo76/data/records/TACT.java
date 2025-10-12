@@ -47,34 +47,32 @@ public class TACT extends RECO
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
-			{
+			else if (sr.getSubrecordType().equals("FULL")) {
 
-			}
-			else if (sr.getSubrecordType().equals("DSTF"))
-			{
+			} else if (sr.getSubrecordType().equals("DSTF")) {
 
-			}
-			else if (sr.getSubrecordType().equals("DEST"))
-			{
+			} else if (sr.getSubrecordType().equals("DEST")) {
 
-			}
-			else if (sr.getSubrecordType().equals("VNAM"))
-			{
+			} else if (sr.getSubrecordType().equals("VNAM")) {
 
-			}
-			else if (sr.getSubrecordType().equals("DSTD"))
-			{
+			} else if (sr.getSubrecordType().equals("DSTD")) {
 
-			}else if (sr.getSubrecordType().equals("PNAM"))
-			{
+			} else if (sr.getSubrecordType().equals("PNAM")) {
 
-			}else if (sr.getSubrecordType().equals("FNAM"))
-			{
+			} else if (sr.getSubrecordType().equals("FNAM")) {
 
-			}
-			else
-			{
+			} 
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {
+			} else if (sr.getSubrecordType().equals("AUUV")) {
+			} else if (sr.getSubrecordType().equals("QSTI")) {
+			} else if (sr.getSubrecordType().equals("CNDC")) {
+			} else if (sr.getSubrecordType().equals("CITC")) {
+			} else if (sr.getSubrecordType().equals("CTDA")) {
+			} else if (sr.getSubrecordType().equals("PAHD")) {
+			} else if (sr.getSubrecordType().equals("CTRN")) {
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 

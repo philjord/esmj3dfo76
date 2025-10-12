@@ -77,9 +77,8 @@ public class ACHR extends InstRECO
 			//FO76
 			else if (sr.getSubrecordType().equals("KWDA")) {	
 			} else if (sr.getSubrecordType().equals("XMSP")) {	
-			}		
-			else
-			{
+			} else if (sr.getSubrecordType().equals("XALG")) {	
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 

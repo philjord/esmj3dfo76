@@ -207,13 +207,26 @@ public class WEAP extends RECO
 			else if (sr.getSubrecordType().equals("DAMA"))
 			{
 				// new
-			}
-			else if (sr.getSubrecordType().equals("MASE"))
-			{
-				// FO4
+			} 
+			// FO4
+			else if (sr.getSubrecordType().equals("MASE")) {
+				
 			}	
-			else
-			{
+			//FO76
+			else if (sr.getSubrecordType().equals("XFLG")) {
+			} else if (sr.getSubrecordType().equals("ENLT")) {	
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {	
+			} else if (sr.getSubrecordType().equals("MODD")) {	
+			} else if (sr.getSubrecordType().equals("EILV")) {	
+			} else if (sr.getSubrecordType().equals("IBSD")) {	
+			} else if (sr.getSubrecordType().equals("VCRY")) {	
+			} else if (sr.getSubrecordType().equals("CVT0")) {	
+			} else if (sr.getSubrecordType().equals("CVT1")) {	
+			} else if (sr.getSubrecordType().equals("CVT2")) {	
+			} else if (sr.getSubrecordType().equals("CVT3")) {	
+			} else if (sr.getSubrecordType().equals("CVT4")) {	
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}

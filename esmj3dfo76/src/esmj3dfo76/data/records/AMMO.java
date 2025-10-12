@@ -109,8 +109,12 @@ public class AMMO extends RECO
 			{
 				// new
 			}
-			else
-			{
+			//FO76
+			else if (sr.getSubrecordType().equals("ENLT")) {	
+			} else if (sr.getSubrecordType().equals("ENLS")) {	
+			} else if (sr.getSubrecordType().equals("AUUV")) {	
+			} else if (sr.getSubrecordType().equals("VCRY")) {	
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}

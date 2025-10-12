@@ -99,9 +99,10 @@ public class FURN extends RECO
 			} else if (sr.getSubrecordType().equals("SNTP")) {		
 			} else if (sr.getSubrecordType().equals("XFLG")) {		
 			} else if (sr.getSubrecordType().equals("XALG")) {		
-			} 
-			else
-			{
+			} else if (sr.getSubrecordType().equals("RADR")) {		
+			} else if (sr.getSubrecordType().equals("NAM1")) {		
+			} else if (sr.getSubrecordType().equals("LODP")) {		
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}

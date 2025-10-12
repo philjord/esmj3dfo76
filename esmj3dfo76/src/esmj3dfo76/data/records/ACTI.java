@@ -130,9 +130,8 @@ public class ACTI extends RECO
 			} else if (sr.getSubrecordType().equals("HGLB")) {		
 			} else if (sr.getSubrecordType().equals("MNAM")) {		
 			} else if (sr.getSubrecordType().equals("DEFL")) {		
-			}
-			else
-			{
+			} else if (sr.getSubrecordType().equals("XFLG")) {		
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
