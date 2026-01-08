@@ -224,7 +224,7 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 				{
 					return true;
 				}
-				else if ((baseRecord.getRecordFlags1() & RECO.VisibleWhenDistant_Flag) != 0)
+				else if ((baseRecord.getRecordFlags() & RECO.VisibleWhenDistant_Flag) != 0)
 				{
 					//anythig with LOD, STAT, SCOL, ACTI
 					return true;
