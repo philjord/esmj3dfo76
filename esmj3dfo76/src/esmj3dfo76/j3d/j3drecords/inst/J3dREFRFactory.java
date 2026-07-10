@@ -114,7 +114,7 @@ public class J3dREFRFactory
 		// does a parent enablage flag exists, and is is defaulted to off?
 		if (refr.xesp != null && CommonREFR.getParentEnable(refr, master) != BethRenderSettings.isFlipParentEnableDefault())
 		{
-			System.out.println("not showen due to xesp " + refr);
+			//System.out.println("not showen due to xesp " + refr);
 			return null;
 		}
 
