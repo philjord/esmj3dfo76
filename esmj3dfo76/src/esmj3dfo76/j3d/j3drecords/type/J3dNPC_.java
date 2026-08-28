@@ -112,8 +112,8 @@ public class J3dNPC_ extends J3dRECOTypeCha
 			nifCharacter.setIdleAnimations(idleAnimations);
 			addChild(nifCharacter);
 			
-			NifJ3dSkeletonRoot.showBoneMarkers = true;
-			J3dNiSkinInstance.showSkinBoneMarkers = true;
+			NifJ3dSkeletonRoot.showBoneMarkers = false;
+			J3dNiSkinInstance.showSkinBoneMarkers = false;
 			addChild(new Cube(0.1,0.1,0.1));
 			
 			setOutline(new Color3f(1.0f, 1.0f, 0f));
