@@ -14,9 +14,9 @@ public class J3dACHR extends J3dRECOChaInst
 	{
 		super(achr);
 
-		//FIXME: CHAR turned off for FO4 for now
-		//if (true)
-		//	return;
+		//FIXME: not sure where the NPC_ is
+		if (achr.NAME.formId == 0 || true) //TOO many crazy change, race is brken alsorts
+			return;
 
 		Record baseRecord = master.getRecord(achr.NAME.formId);
 		if (baseRecord.getRecordType().equals("NPC_"))

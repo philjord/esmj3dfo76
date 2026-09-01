@@ -2,7 +2,6 @@ package esmj3dfo76.j3d.j3drecords.type;
 
 import java.util.ArrayList;
 
-import org.jogamp.java3d.utils.shader.Cube;
 import org.jogamp.vecmath.Color3f;
 
 import esfilemanager.common.data.record.IRecordStore;
@@ -54,7 +53,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		super(npc_, false);
 		
 		//TODO: NPC_ very much disabled
-		if(true)return;
+		//if(true)return;
 
 		female = npc_.ACBS.isFemale();
 
@@ -172,30 +171,27 @@ public class J3dNPC_ extends J3dRECOTypeCha
 
 	}
 
-	private NPC_ organiseLVLN(LVLN lvln, IRecordStore master)
-	{
+	private NPC_ organiseLVLN(LVLN lvln, IRecordStore master) {
 		// TODO: randomly picked for now
 		LVLO[] LVLOs = lvln.LVLOs;
 
-		int idx = (int) (Math.random() * LVLOs.length);
+		int idx = (int)(Math.random() * LVLOs.length);
 		idx = idx == LVLOs.length ? 0 : idx;
+		if (LVLOs[idx].itemFormId != 0) {
 
-		Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
+			Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
 
-		if (baseRecord.getRecordType().equals("NPC_"))
-		{
-			return new NPC_(baseRecord);
+			if (baseRecord.getRecordType().equals("NPC_")) {
+				return new NPC_(baseRecord);
+			} else if (baseRecord.getRecordType().equals("LVLN")) {
+				LVLN lvln2 = new LVLN(baseRecord);
+				return organiseLVLN(lvln2, master);
+			} else {
+				System.out.println("LVLN record type not converted to j3d " + baseRecord.getRecordType());
+			}
 		}
-		else if (baseRecord.getRecordType().equals("LVLN"))
-		{
-			LVLN lvln2 = new LVLN(baseRecord);
-			return organiseLVLN(lvln2, master);
-		}
-		else
-		{
-			System.out.println("LVLN record type not converted to j3d " + baseRecord.getRecordType());
-			return null;
-		}
+		return null;
+
 	}
 
 	private void organiseCNTOs(ArrayList<CNTO> cntos, IRecordStore master)
@@ -276,7 +272,10 @@ public class J3dNPC_ extends J3dRECOTypeCha
 	private void addARMO(ARMO armo, IRecordStore master)
 	{
 		ARMA arma = new ARMA(master.getRecord(armo.MODL.formId));
-		String nifStr = arma.MOD2.model;
+		String nifStr = null;
+		if (arma.MOD2 != null)
+			nifStr = arma.MOD2.model;
+		
 		if (female && arma.MOD3 != null)
 		{
 			nifStr = arma.MOD3.model;

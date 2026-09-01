@@ -4,10 +4,10 @@ import tools.io.ESMByteConvert;
 
 public class LVLD
 {
-	public byte chanceNone;
+	//public byte chanceNone;
 
 	public LVLD(byte[] bytes)
 	{
-		chanceNone = ESMByteConvert.extractByte(bytes, 0);
+		//chanceNone = ESMByteConvert.extractByte(bytes, 0);
 	}
 }

@@ -65,7 +65,12 @@ public class MSTT extends RECO
 			} else if (sr.getSubrecordType().equals("PHST")) {	
 			} else if (sr.getSubrecordType().equals("XALG")) {		
 			} else if (sr.getSubrecordType().equals("DEFL")) {		
+			} else if (sr.getSubrecordType().equals("SNTP")) {		
+			} else if (sr.getSubrecordType().equals("HGLB")) {		
+			} else if (sr.getSubrecordType().equals("APPR")) {		
 			}
+			
+			
 			else
 			{
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);

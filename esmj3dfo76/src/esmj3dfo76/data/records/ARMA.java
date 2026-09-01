@@ -159,22 +159,14 @@ public class ARMA extends RECO
 			{
 				
 			}
-			else if (sr.getSubrecordType().equals("MO3F"))
-			{
-
+			else if (sr.getSubrecordType().equals("MO3F")) {
+			} else if (sr.getSubrecordType().equals("BSMP")) {
+			} else if (sr.getSubrecordType().equals("BSMB")) {
+			} else if (sr.getSubrecordType().equals("BSMS")) {
+			} else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {
+			} else if (sr.getSubrecordType().equals("AUUV")) {
 			}
-			else if (sr.getSubrecordType().equals("BSMP"))
-			{
-
-			}			
-			else if (sr.getSubrecordType().equals("BSMB"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("BSMS"))
-			{
-
-			}		
 			
 			else
 			{

@@ -10,6 +10,7 @@ import esmj3d.data.shared.records.RECO;
 import esmj3dfo76.data.subrecords.LVLD;
 import esmj3dfo76.data.subrecords.LVLF;
 import esmj3dfo76.data.subrecords.LVLO;
+
 /**
  * https://falloutck.uesp.net/wiki/LeveledCharacter
  * 
@@ -19,68 +20,51 @@ import esmj3dfo76.data.subrecords.LVLO;
  * You will see a generic marker in the Editor when placing the reference since the Creation Kit has no way of knowing what model to place. 
  * This reference can have data on it as well. 
  */
-public class LVLN extends RECO
-{
-	
+public class LVLN extends RECO {
 
-	public LVLD LVLD = null;
+	public LVLD		LVLD	= null;
 
-	public LVLF LVLF = null;
+	public LVLF		LVLF	= null;
 
-	public LVLO[] LVLOs = null;
+	public LVLO[]	LVLOs	= null;
 
-	public LVLN(Record recordData)
-	{
+	public LVLN(Record recordData) {
 		super(recordData);
 
 		ArrayList<LVLO> LVLOsl = new ArrayList<LVLO>();
 
 		List<Subrecord> subrecords = recordData.getSubrecords();
-		for (int i = 0; i < subrecords.size(); i++)
-		{
+		for (int i = 0; i < subrecords.size(); i++) {
 			Subrecord sr = subrecords.get(i);
 			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("EDID"))
-			{
+			if (sr.getSubrecordType().equals("EDID")) {
 				setEDID(bs);
-			}
-			else if (sr.getSubrecordType().equals("OBND"))
-			{
+			} else if (sr.getSubrecordType().equals("OBND")) {
 
-			}
-			else if (sr.getSubrecordType().equals("LVLD"))
-			{
+			} else if (sr.getSubrecordType().equals("LVLD")) {
 				LVLD = new LVLD(bs);
-			}
-			else if (sr.getSubrecordType().equals("LVLF"))
-			{
+			} else if (sr.getSubrecordType().equals("LVLF")) {
 				LVLF = new LVLF(bs);
-			}
-			else if (sr.getSubrecordType().equals("LLCT"))
-			{
+			} else if (sr.getSubrecordType().equals("LLCT")) {
 
-			}
-			else if (sr.getSubrecordType().equals("LVLO"))
-			{
+			} else if (sr.getSubrecordType().equals("LVLO")) {
 				LVLOsl.add(new LVLO(bs));
-			}
-			else if (sr.getSubrecordType().equals("COED"))
-			{
+			} else if (sr.getSubrecordType().equals("COED")) {
 
-			}
-			else if (sr.getSubrecordType().equals("MODL"))
-			{
-
-			}else if (sr.getSubrecordType().equals("MODT"))
-			{
-
-			}else if (sr.getSubrecordType().equals("LVLM"))
-			{
-
-			}
-			else
-			{
+			} else if (sr.getSubrecordType().equals("MODL")) {
+			} else if (sr.getSubrecordType().equals("MODT")) {
+			} else if (sr.getSubrecordType().equals("LVLM")) {
+			} else if (sr.getSubrecordType().equals("LVOV")) {
+			} else if (sr.getSubrecordType().equals("LVIV")) {
+			} else if (sr.getSubrecordType().equals("LVLV")) {
+			} else if (sr.getSubrecordType().equals("CTDA")) {
+			} else if (sr.getSubrecordType().equals("LVMV")) {
+			} else if (sr.getSubrecordType().equals("LVCV")) {
+			} else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {
+			} else if (sr.getSubrecordType().equals("AUUV")) {
+			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 

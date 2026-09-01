@@ -66,22 +66,18 @@ public class LVLI extends RECO
 			else if (sr.getSubrecordType().equals("LVLO"))
 			{
 				LVLOsl.add(new LVLO(bs));
-			}
-			else if (sr.getSubrecordType().equals("DATA"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("LVLM"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("LLKC"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("LVSG"))
-			{
-
+			} else if (sr.getSubrecordType().equals("DATA")) {
+			} else if (sr.getSubrecordType().equals("LVLM")) {
+			} else if (sr.getSubrecordType().equals("LLKC")) {
+			} else if (sr.getSubrecordType().equals("LVSG")) {
+			} else if (sr.getSubrecordType().equals("LVMV")) {
+			} else if (sr.getSubrecordType().equals("LVCV")) {
+			} else if (sr.getSubrecordType().equals("LVOV")) {
+			} else if (sr.getSubrecordType().equals("LVIV")) {
+			} else if (sr.getSubrecordType().equals("LVLV")) {
+			} else if (sr.getSubrecordType().equals("ENLT")) {
+			} else if (sr.getSubrecordType().equals("ENLS")) {
+			} else if (sr.getSubrecordType().equals("AUUV")) {
 			}
 			else
 			{
