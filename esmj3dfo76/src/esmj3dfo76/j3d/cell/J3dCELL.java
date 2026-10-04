@@ -34,7 +34,7 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 	{
 		super(master, worldId, makePhys, mediaSources);
 		cell = new CELL(cellRecord);
-		setCell(cell);
+		setCell(cell);	
 
 		BethRenderSettings.addUpdateListener(this);
 	}
@@ -115,29 +115,7 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 						return null;
 					ret = new J3dACHR(achr, master, mediaSources);
 				}
-			}
-			else if (record.getRecordType().equals("LAND"))
-			{
-				if (makePhys)
-				{
-					/*	Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
-						if (parentLANDrec != null)
-							j3dLAND = new J3dLAND(new LAND(parentLANDrec));
-						else*/
-					j3dLAND = new J3dLAND(new LAND(record));
-				}
-				else
-				{
-					/*Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
-					if (parentLANDrec != null)
-						j3dLAND = new J3dLAND(new LAND(parentLANDrec), master, mediaSources.getTextureSource());
-					else*/
-					j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
-				}
-				j3dLAND.setLocation(cellLocation, new Quat4f(0, 0, 0, 1));
-
-				ret = j3dLAND;
-			}
+			}			
 			else if (record.getRecordType().equals("NAVM"))
 			{
 				//System.out.println("NAVM " + record.getRecordType());
