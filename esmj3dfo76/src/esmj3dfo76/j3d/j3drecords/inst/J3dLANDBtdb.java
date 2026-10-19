@@ -27,11 +27,11 @@ import org.jogamp.vecmath.Color4f;
 import org.jogamp.vecmath.TexCoord2f;
 import org.jogamp.vecmath.Vector3f;
 
+import esfilemanager.btd.BtdReaderFile;
 import esfilemanager.btd.BtdbReader;
 import esfilemanager.common.data.record.IRecordStore;
 import esfilemanager.common.data.record.Record;
 import esmj3d.data.shared.records.LTEX;
-import esmj3d.data.shared.records.TXST;
 import esmj3d.j3d.TESLANDGen;
 import esmj3d.j3d.j3drecords.inst.J3dLAND;
 import esmj3dfo76.data.records.LANDBtdb;
@@ -46,29 +46,34 @@ import utils.source.TextureSource;
 
 // https://ghoul-earth.com/ tells me what it should look like
 public class J3dLANDBtdb extends J3dLAND {
-	//TODO: something something lods get less
-	public static int	GRID_COUNT			= 128;						//NOTE the 32 of the other one is a 33 wide grid for 32 "flats"
 
-	//public static final float		TERRIAN_SQUARE_SIZE	= ConvertFromNif.toJ3d(128);	// = 1.6256m
+	public static BtdReaderFile	btdReaderFile;
 
-	//	NOTE nif x,y,z to j3d x,z,-y
-	//-700.0, mimimum height  38209.996, maximum height, I see rocks placed at 470m so maths
-	//using a value of 1 here I get the correct looking world min=-700.0 max=38209.996 min=-8.89 max=485.26694
-	public static float	HEIGHT_TO_J3D_SCALE	= ConvertFromNif.toJ3d(1f);	//half inch now 0.0127m
+	private int					gridCount	= 128;	// made class memebr as each one may se a differnegrid count based on lodness
 
-	public static float	LAND_SIZE			= 52.0192f;					// make it fixed 4096 nif unit per land = this many meters, regardless of grid size
+	private BtdbReader			btdbReader;
+	private int					x;
+	private int					y;
+	private int					lod			= 0;
 
-	private BtdbReader	btdbReader;
-	private int			x;
-	private int			y;
+	// statically set the fixed values in the parent
+	{
+		//-700.0, mimimum height  38209.996, maximum height, I see rocks placed at 470m so maths
+		//using a value of 1 here I get the correct looking world min=-700.0 max=38209.996 min=-8.89 max=485.26694
+		HEIGHT_TO_J3D_SCALE = ConvertFromNif.toJ3d(1f); //half inch now 0.0127m
+		LAND_SIZE = 52.0192f; // make it fixed 4096 nif unit per land = this many meters, regardless of grid size
+
+	}
 
 	/**
 	 * Makes the physics version of land
 	 */
 	public J3dLANDBtdb(BtdbReader btdbReader, int fakeFormId, int x, int y) {
 		super(new LANDBtdb(fakeFormId), false, true);
+
 		this.x = x;
 		this.y = y;
+		this.lod = 0;//NOTE! hard coded no phys further away!
 		this.btdbReader = btdbReader;
 		if (btdbReader != null) {
 			float[] hMinMax = new float[2];
@@ -82,8 +87,8 @@ public class J3dLANDBtdb extends J3dLAND {
 
 			//now translate the heights into a nice mesh, 82 has been confirmed empirically			
 			//Note that 33 by 33 sets of point equals 32 by 32 sets of triangles between them
-			TESLANDGen gridGenerator = new TESLANDGen(J3dLANDBtdb.LAND_SIZE, J3dLANDBtdb.LAND_SIZE, GRID_COUNT,
-					GRID_COUNT, heights, null, null, null);
+			TESLANDGen gridGenerator = new TESLANDGen(J3dLANDBtdb.LAND_SIZE, J3dLANDBtdb.LAND_SIZE, gridCount,
+					gridCount, heights, null, null, null);
 			GeometryData terrainData = new GeometryData();
 			gridGenerator.generateIndexedTriangleStrips(terrainData);
 
@@ -118,7 +123,7 @@ public class J3dLANDBtdb extends J3dLAND {
 			hMinMax[1] = btdbReader.getMaxHeight();
 			// extract the heights
 			short[] cellHeightMap = new short[16512];
-			btdbReader.getCellHeightMap(cellHeightMap, x, y, 0);
+			btdbReader.getCellHeightMap(cellHeightMap, x, y, 0);// NOTE hard coded lod==0
 			return extractHeights(hMinMax, cellHeightMap);
 		}
 		return null;
@@ -137,20 +142,25 @@ public class J3dLANDBtdb extends J3dLAND {
 
 	private static final Object		shaderLock		= new Object();
 
-	public J3dLANDBtdb(	BtdbReader btdbReader, int fakeFormId, int x, int y, IRecordStore master,
+	public J3dLANDBtdb(	BtdbReader btdbReader, int fakeFormId, int x, int y, int lod, IRecordStore master,
 						TextureSource textureSource) {
 		super(new LANDBtdb(fakeFormId), false, false);
-		LAND(btdbReader, x, y, master, textureSource);
+		LAND(btdbReader, x, y, lod, master, textureSource);
 	}
 
-	private void LAND(BtdbReader btdbReader, int x, int y, IRecordStore master, TextureSource textureSource) {
+	private void LAND(BtdbReader btdbReader, int x, int y, int lod, IRecordStore master, TextureSource textureSource) {
 
 		this.x = x;
 		this.y = y;
+		this.lod = lod;
 		this.btdbReader = btdbReader;
+
+		//grid count is now per lod so lod1 =64 lod2=32 lod3 = 16
+		gridCount = lod == 1 ? 64 : lod == 2 ? 32 : lod == 3 ? 16 : 128;//lod 4 should never come in here! so this is lod==0
+
 		int quadrantsPerSide = 2;//sw,se,nw,ne
 		int totalQuadrants = quadrantsPerSide * quadrantsPerSide;
-		int quadrantSquareCount = ((GRID_COUNT - 1) / quadrantsPerSide) + 1;
+		int quadrantSquareCount = ((gridCount - 1) / quadrantsPerSide) + 1;
 
 		Group baseGroup = new Group();
 		addNodeChild(baseGroup);
@@ -165,19 +175,20 @@ public class J3dLANDBtdb extends J3dLAND {
 			hMinMax[0] = btdbReader.getMinHeight();
 			hMinMax[1] = btdbReader.getMaxHeight();
 
-			short[] cellHeightMap = new short[16512];
-			btdbReader.getCellHeightMap(cellHeightMap, x, y, 0);
+			short[] cellHeightMap = new short[gridCount * gridCount];
+			//TODO: i'M SEEING A CONCURRECY TYPE ISSE, PHYS LOAD FINE ADN A SECOND LOAD OF TEH same cell laods fine
+			btdbReader.getCellHeightMap(cellHeightMap, x, y, lod);
 
-			// extract the colors
-			short[] cellTerrainColor = new short[16512];
-			btdbReader.getCellTerrainColor(cellTerrainColor, x, y, 0);
-			//terrain color block format (LOD3 and LOD2 only):
+			// extract the colors//colors seem to make thing darker but not usefully
+			short[] cellTerrainColor = null;//new short[gridCount * gridCount];
+			//btdbReader.getCellTerrainColor(cellTerrainColor, x, y, lod);
+			//terrain color block format (LOD3 and LOD2 only):			
 			Color4f[][] colors = extractColors(cellTerrainColor);
 
-			short[] cellLandTexture = new short[16512];
-			btdbReader.getCellLandTexture(cellLandTexture, x, y, 0);
-			byte[] cellGroundCover = new byte[16512];
-			btdbReader.getCellGroundCover(cellGroundCover, x, y, 0);
+			short[] cellLandTexture = new short[gridCount * gridCount];
+			btdbReader.getCellLandTexture(cellLandTexture, x, y, lod);
+			//byte[] cellGroundCover = new byte[gridCount*gridCount];// no ground cover after lod0 
+			//btdbReader.getCellGroundCover(cellGroundCover, x, y, lod);
 			byte[] cellTextureSet = new byte[64];
 			btdbReader.getCellTextureSet(cellTextureSet, x, y);
 
@@ -185,7 +196,7 @@ public class J3dLANDBtdb extends J3dLAND {
 			for (int quadrant = 0; quadrant < totalQuadrants; quadrant++) {
 				ShaderAppearance app = new ShaderAppearance();
 				app.setMaterial(createMat());
-				//app.setRenderingAttributes(createRA());
+				app.setRenderingAttributes(createRA());
 
 				Shape3D baseQuadShape = new Shape3D();
 				baseQuadShape.setAppearance(app);
@@ -193,8 +204,7 @@ public class J3dLANDBtdb extends J3dLAND {
 				int[] attributeSizes = new int[] {4, 4};
 
 				try {
-					//TODO: current testing on Lod=0 only!
-					GeometryArray ga = makeQuadrantBaseSubGeom(colors, quadrantsPerSide, 0, quadrant, 1, 2,
+					GeometryArray ga = makeQuadrantBaseSubGeom(colors, quadrantsPerSide, lod, quadrant, 1, 2,
 							attributeSizes, hMinMax, cellHeightMap);
 
 					ga.setName("LAND " + quadrant + " " + x + " " + y);
@@ -239,6 +249,8 @@ public class J3dLANDBtdb extends J3dLAND {
 					bb.order(ByteOrder.nativeOrder());
 					FloatBuffer alphas47 = bb.asFloatBuffer();
 
+					int tusNo = 1;
+
 					for (int atxtLayer = 0; atxtLayer < 5; atxtLayer++) {
 						//cellLandTexture is vtxt now
 
@@ -248,52 +260,64 @@ public class J3dLANDBtdb extends J3dLAND {
 
 							if (tus == null)
 								System.err.println("tus == null, things are gonna break!");
-
 							allTextureUnitStates.add(tus);
-
-							allShaderAttributeValues.add(
-									new ShaderAttributeValue("layerMap" + atxtLayer, Integer.valueOf(atxtLayer + 1)));
-
-							// now build up the vertex attribute float arrays to hand to the geometry	
-							//cellLandTexture is 128x128 x short of these opacities						
-
-							//TODO: lower lods less grid count,( like a far for tes3) but also cover more cells worths like obliv
-							for (int row = 0; row < quadrantSquareCount; row++) {
-								for (int col = 0; col < quadrantSquareCount; col++) {
-
-									//I am inside a  a quadrant 0-3 so I'm 64x64 of the full 128x128
-									//so quad 0 is 0-64,0-64 quad 1 = 65-128,0-64, quad 2 = 0-64,65-128, quad 3 = 65-128,65-128 
-									int sourceCol = col;
-									if (quadrant == 1 || quadrant == 3)
-										sourceCol += quadrantSquareCount;
-
-									int sourceRow = (quadrantSquareCount - 1) - row; // flipped probably the xyz to x-zy (0to63 becomes 63to0)
-									if (quadrant == 2 || quadrant == 3)
-										sourceRow += quadrantSquareCount;
-
-									int sourceIdx = sourceCol + (sourceRow * GRID_COUNT); //row span is the full 128
-									int vtxtopacity = (cellLandTexture[sourceIdx] & 0xFFFF);
-
-									//int16 land textures,  bits[N * 3 to N * 3 + 2] = texture N alpha (0 to 7),
-									float a0 = ((vtxtopacity >> 0) & 0x07) / 7f;
-									float a1 = ((vtxtopacity >> 3) & 0x07) / 7f;
-									float a2 = ((vtxtopacity >> 6) & 0x07) / 7f;
-									float a3 = ((vtxtopacity >> 9) & 0x07) / 7f;
-									float a4 = ((vtxtopacity >> 12) & 0x07) / 7f;
-
-									int idx = ((row * quadrantSquareCount) + col) * 4;
-
-									alphas03.put(idx + 0, a0);
-									alphas03.put(idx + 1, a1);
-									alphas03.put(idx + 2, a2);
-									alphas03.put(idx + 3, a3);
-
-									alphas47.put(idx + 0, a4);
-
-								}
-
-							}
+							tusNo++;
+						} else {
+							// I will simply not bind to that layer anything, so note the attribute value is tusNo
 						}
+
+						allShaderAttributeValues
+								.add(new ShaderAttributeValue("layerMap" + atxtLayer, Integer.valueOf(tusNo)));
+					}
+					// now build up the vertex attribute float arrays to hand to the geometry	
+					//cellLandTexture is 128x128 x short of these opacities	
+					for (int row = 0; row < quadrantSquareCount; row++) {
+						for (int col = 0; col < quadrantSquareCount; col++) {
+
+							//I am inside a  a quadrant 0-3 so I'm 64x64 of the full 128x128
+							//so quad 0 is 0-64,0-64 quad 1 = 65-128,0-64, quad 2 = 0-64,65-128, quad 3 = 65-128,65-128 
+							int sourceCol = col;
+							if (quadrant == 1 || quadrant == 3)
+								sourceCol += quadrantSquareCount;
+
+							int sourceRow = (quadrantSquareCount - 1) - row; // flipped probably the xyz to x-zy (0to63 becomes 63to0)
+							if (quadrant == 2 || quadrant == 3)
+								sourceRow += quadrantSquareCount;
+
+							int sourceIdx = sourceCol + (sourceRow * gridCount); //row span is the full 128
+							int vtxtopacity = (cellLandTexture[sourceIdx] & 0xFFFF);
+
+							//int16 land textures,  bits[N * 3 to N * 3 + 2] = texture N alpha (0 to 7),
+							float a0 = ((vtxtopacity >> 0) & 0x07) / 7f;
+							float a1 = ((vtxtopacity >> 3) & 0x07) / 7f;
+							float a2 = ((vtxtopacity >> 6) & 0x07) / 7f;
+							float a3 = ((vtxtopacity >> 9) & 0x07) / 7f;
+							float a4 = ((vtxtopacity >> 12) & 0x07) / 7f;
+
+							// anything with no texture bound needs to be a 0 alpha
+
+							if ((cellTextureSet[quadOff + 0] & 0xFF) == 0xFF)
+								a0 = 0;
+							if ((cellTextureSet[quadOff + 1] & 0xFF) == 0xFF)
+								a1 = 0;
+							if ((cellTextureSet[quadOff + 2] & 0xFF) == 0xFF)
+								a2 = 0;
+							if ((cellTextureSet[quadOff + 3] & 0xFF) == 0xFF)
+								a3 = 0;
+							if ((cellTextureSet[quadOff + 4] & 0xFF) == 0xFF)
+								a4 = 0;
+
+							int idx = ((row * quadrantSquareCount) + col) * 4;
+
+							alphas03.put(idx + 0, a0);
+							alphas03.put(idx + 1, a1);
+							alphas03.put(idx + 2, a2);
+							alphas03.put(idx + 3, a3);
+
+							alphas47.put(idx + 0, a4);//FIXME: see sahder this always shows up as black?
+
+						}
+
 					}
 
 					//TODO: the 8 ground covers
@@ -371,11 +395,10 @@ public class J3dLANDBtdb extends J3dLAND {
 		return new Vector3f(x, 0, -y);
 	}
 
-	protected static GeometryArray makeQuadrantBaseSubGeom(	Color4f[][] colors, int quadrantsPerSide, int lod,
-															int quadrant, int texCoordCount, int vertexAttrCount,
-															int[] vertexAttrSizes, float[] hMinMax,
-															short[] cellHeightMap) {
-		int quadrantSquareCount = 64;
+	protected GeometryArray makeQuadrantBaseSubGeom(Color4f[][] colors, int quadrantsPerSide, int lod, int quadrant,
+													int texCoordCount, int vertexAttrCount, int[] vertexAttrSizes,
+													float[] hMinMax, short[] cellHeightMap) {
+		int quadrantSquareCount = gridCount / 2;
 		float[][] quadrantHeights = new float[quadrantSquareCount][quadrantSquareCount];
 		Color4f[][] quadrantColors = null;
 		if (lod == 2 || lod == 3 || lod == 4)
@@ -420,9 +443,9 @@ public class J3dLANDBtdb extends J3dLAND {
 	 * @param quadrantNormals 64x64 array to be filled
 	 * @param quadrantColors 64x64 array to be filled
 	 */
-	private static void makeQuadrantData(	int lod, int quadrant, Color4f[][] baseColors, float[][] quadrantHeights,
-											Color4f[][] quadrantColors, TexCoord2f[][] quadrantTexCoords,
-											float[] hMinMax, short[] cellHeightMap) {
+	private void makeQuadrantData(	int lod, int quadrant, Color4f[][] baseColors, float[][] quadrantHeights,
+									Color4f[][] quadrantColors, TexCoord2f[][] quadrantTexCoords, float[] hMinMax,
+									short[] cellHeightMap) {
 
 		// N = 128 >> lod, buffer size = N * N, so lod0=128x128 shorts
 		// 0 to 65535 maps to minimum height to maximum height
@@ -433,7 +456,7 @@ public class J3dLANDBtdb extends J3dLAND {
 		//https://github.com/fo76utils/fo76utils/blob/main/src/terrmesh.cpp
 		float span = maxHeight - minHeight;
 
-		int quadrantSquareCount = 64;
+		int quadrantSquareCount = gridCount / 2;
 
 		for (int row = 0; row < quadrantSquareCount; row++) {
 			for (int col = 0; col < quadrantSquareCount; col++) {
@@ -453,42 +476,28 @@ public class J3dLANDBtdb extends J3dLAND {
 					quadrantColors[row][col] = baseColors[sourceRow][sourceCol];
 				quadrantTexCoords[row][col] = new TexCoord2f((row * TEX_REPEAT), (col * TEX_REPEAT));
 
-				int sourceIdx = sourceCol + (sourceRow * GRID_COUNT); //row span is the full 128	 
+				int sourceIdx = sourceCol + (sourceRow * gridCount); //row span is the full 128	 
 				float height = (((cellHeightMap[sourceIdx] & 0xFFFF) / 65535f) * span) + minHeight;
-
+				//debugger for seeing which lod is which
+				//height = 200+(lod*10);				
 				quadrantHeights[row][col] = height;
 
 			}
 		}
 	}
 
+	//static HashSet<String> texNames= new HashSet<String>();
 	public static TextureUnitState getTexture(int textureFormID, IRecordStore master, TextureSource textureSource) {
 		if (textureFormID > 0) {
 			Record ltexRec = master.getRecord(textureFormID);
 			if (ltexRec.getRecordType().equals("LTEX")) {
 				TextureUnitState tus = null;
 				LTEX ltex = new LTEX(ltexRec);
-				int texSetId = ltex.textureSetId;
+				//int texSetId = ltex.textureSetId;
 
-				if (texSetId != -1) {
-					Record texSetRec = master.getRecord(texSetId);
-					TXST textureSet = new TXST(texSetRec);
-					if (textureSet.TX00 != null) {
-						tus = textureSource.getTextureUnitState(textureSet.TX00);
-					} else if (textureSet.MNAM != null) {
-						// new fallout 4 texture system
-
-						BSMaterialDataBGSM material = MaterialsSource.bgsmSource
-								.getShaderMaterial("Materials\\" + textureSet.MNAM);
-						if (material != null) {
-							tus = textureSource.getTextureUnitState(material.DiffuseTexture);
-						}
-
-					}
-				} else if (ltex.ICON != null) {
-					//obliv uses simpler system					
-					tus = textureSource.getTextureUnitState("Landscape\\" + ltex.ICON);
-				} else if (ltex.materialName != null) {
+				// they seem to always be this first one, teh other are in as examples of wehre 
+				// you might find textures!
+				if (ltex.materialName != null) {
 					//Record matTypeRec = master.getRecord(ltex.materialTypeId);	
 					//MATT matt = new MATT(matTypeRec);
 					//tus = textureSource.getTextureUnitState(ltex.materialName);					
@@ -497,7 +506,46 @@ public class J3dLANDBtdb extends J3dLAND {
 					//TODO: at this point I have a full shaderable set of normals and smooth etc etc					
 					tus = textureSource.getTextureUnitState(material.DiffuseTexture);
 
+					/*texNames.add(material.DiffuseTexture);					
+					for(String name :texNames) {
+						System.out.println("texName " + name);						
+					}*/
+					/*
+					texName landscape\ground\fallenleaves01_d.dds texures02
+					texName Landscape\Ground\MtnRemovalDirtPath01_d.DDS texures01
+					texName Landscape\Ground\MtnTopRockSlab01_d.DDS texures03
+					texName Landscape\Ground\ForestRocks01_D.dds texures02
+					texName Landscape\Ground\ForestDirt01_d.dds texures02
+					texName Landscape\Ground\MtnTopPineNeedles01_d.DDS texures02
+					texName Landscape\Ground\ForestGrass01_d.dds texures02
+					texName landscape\ground\riverbedrocks_d.dds texures01
+					texName Landscape\Ground\AsphaltGround01_d.dds texures01
+					texName Landscape\Ground\DirtGravel01_d.dds texures02
+					texName Landscape\Ground\MtnTopDirt01_d.DDS texures01
+					texName Landscape\Ground\MtnTopGrass01_d.DDS texures01
+					 */
 				}
+
+				/*else if (texSetId != -1) {
+					Record texSetRec = master.getRecord(texSetId);
+					TXST textureSet = new TXST(texSetRec);
+					if (textureSet.TX00 != null) {
+						tus = textureSource.getTextureUnitState(textureSet.TX00);					
+					} else if (textureSet.MNAM != null) {
+						// new fallout 4 texture system
+						BSMaterialDataBGSM material = MaterialsSource.bgsmSource
+								.getShaderMaterial("Materials\\" + textureSet.MNAM);
+						if (material != null) {
+							tus = textureSource.getTextureUnitState(material.DiffuseTexture);
+						}
+					}
+					
+					
+				} else if (ltex.ICON != null) {
+					//obliv uses simpler system					
+					tus = textureSource.getTextureUnitState("Landscape\\" + ltex.ICON);					
+				}*/
+
 				return tus;
 			} else {
 				System.out.println(
@@ -511,7 +559,7 @@ public class J3dLANDBtdb extends J3dLAND {
 
 	private float[][] extractHeights(float[] hMinMax, short[] cellHeightMap) {
 		// extract the heights
-		float[][] heights = new float[GRID_COUNT][GRID_COUNT];
+		float[][] heights = new float[gridCount][gridCount];
 
 		// N = 128 >> lod, buffer size = N * N, so lod0=128x128 shorts
 		// 0 to 65535 maps to minimum height to maximum height
@@ -522,12 +570,12 @@ public class J3dLANDBtdb extends J3dLAND {
 		float span = maxHeight - minHeight;
 
 		//TODO: lower lods less grid count, like a far for tes3
-		for (int row = 0; row < GRID_COUNT; row++) {
-			for (int col = 0; col < GRID_COUNT; col++) {
-				int idx = col + (row * GRID_COUNT);
+		for (int row = 0; row < gridCount; row++) {
+			for (int col = 0; col < gridCount; col++) {
+				int idx = col + (row * gridCount);
 				float h = (((cellHeightMap[idx] & 0xFFFF) / 65535f) * span) + minHeight;
 				// note reverse order, due to x,y,z => x,z,-y
-				heights[(GRID_COUNT - 1) - row][col] = h;
+				heights[(gridCount - 1) - row][col] = h;
 
 				//update lowest highest
 				lowestHeight = h < lowestHeight ? h : lowestHeight;
@@ -538,17 +586,17 @@ public class J3dLANDBtdb extends J3dLAND {
 		return heights;
 	}
 
-	protected static Color4f[][] extractColors(short[] cellTerrainColor) {
+	protected Color4f[][] extractColors(short[] cellTerrainColor) {
 
 		//type in packed 16-bit format, 5 bits per channel
 		//https://learn.microsoft.com/en-us/windows/win32/directshow/working-with-16-bit-rgb
 
-		Color4f[][] colors = new Color4f[GRID_COUNT][GRID_COUNT];
+		Color4f[][] colors = new Color4f[gridCount][gridCount];
 
-		for (int row = 0; row < GRID_COUNT; row++) {
-			for (int col = 0; col < GRID_COUNT; col++) {
+		for (int row = 0; row < gridCount; row++) {
+			for (int col = 0; col < gridCount; col++) {
 				if (cellTerrainColor != null) {
-					int idx = col + (row * GRID_COUNT);
+					int idx = col + (row * gridCount);
 					short pixel = cellTerrainColor[idx];
 
 					// useful 565
@@ -564,10 +612,10 @@ public class J3dLANDBtdb extends J3dLAND {
 					Color4f c = new Color4f(r / 255.0f, g / 255.0f, b / 255.0f, 1.0f);//note hard coded opaque
 
 					// note reverse order, due to x,y,z => x,z,-y
-					colors[(GRID_COUNT - 1) - row][col] = c;
+					colors[(gridCount - 1) - row][col] = c;
 				} else {
 					// no colors let's try white
-					colors[(GRID_COUNT - 1) - row][col] = new Color4f(1.0f, 1.0f, 1.0f, 1.0f);
+					colors[(gridCount - 1) - row][col] = new Color4f(1.0f, 1.0f, 1.0f, 1.0f);
 				}
 
 			}
@@ -744,7 +792,7 @@ public class J3dLANDBtdb extends J3dLAND {
 	// So the btdb sub class can override
 	@Override
 	public float getTERRIAN_SQUARE_SIZE() {
-		return LAND_SIZE / GRID_COUNT;
+		return LAND_SIZE / gridCount;
 	}
 
 	/*

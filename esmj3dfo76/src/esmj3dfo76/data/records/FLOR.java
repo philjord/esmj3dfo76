@@ -85,7 +85,8 @@ public class FLOR extends RECO
 			} else if (sr.getSubrecordType().equals("FMIG")) {		
 			} else if (sr.getSubrecordType().equals("OPDS")) {		
 			} else if (sr.getSubrecordType().equals("SNTP")) {		
-			} else if (sr.getSubrecordType().equals("XALG")) {		
+			} else if (sr.getSubrecordType().equals("XALG")) {	
+			} else if (sr.getSubrecordType().equals("XFLG")) {	
 			} else {
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}

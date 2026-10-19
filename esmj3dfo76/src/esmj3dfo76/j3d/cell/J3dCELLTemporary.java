@@ -16,39 +16,42 @@ import utils.source.MediaSources;
 
 public class J3dCELLTemporary extends J3dCELL {
 
-	private static BtdReaderFile btdReaderFile;
-
 	public J3dCELLTemporary(IRecordStore master, Record cellRecord, int worldId, List<Record> children,
 							boolean makePhys, MediaSources mediaSources) {
 		super(master, cellRecord, worldId, makePhys, mediaSources);
 		indexRecords(children);
 
-		if (btdReaderFile == null) {
-			try {
-				btdReaderFile = new BtdReaderFile("D:\\game_media\\Fallout76\\Data\\Terrain\\Appalachia.btd");
-			} catch (Exception e) {
-				e.printStackTrace();
+		synchronized (BtdReaderFile.class) {
+			if (J3dLANDBtdb.btdReaderFile == null) {
+				try {
+					J3dLANDBtdb.btdReaderFile = new BtdReaderFile(
+							"D:\\game_media\\Fallout76\\Data\\Terrain\\Appalachia.btd");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
 		// this would normally be done in the makeJ3dRECO(record); below but it isn't a record any more
-		if (btdReaderFile != null ) {
+		if (J3dLANDBtdb.btdReaderFile != null) {
 			//we need to make up a record id, 1 land per cell so let's try this 
 			int fakeFormId = -cellRecord.getFormID();
-			
+
 			Vector3f loc = getInstCell().getTrans();
 			if (makePhys) {
-				j3dLAND = new J3dLANDBtdb(btdReaderFile.getBtdbReader(), fakeFormId, (int)loc.x, (int)loc.y);
+				j3dLAND = new J3dLANDBtdb(J3dLANDBtdb.btdReaderFile.getBtdbReader(), fakeFormId, (int)loc.x,
+						(int)loc.y);
 			} else {
-				j3dLAND = new J3dLANDBtdb(btdReaderFile.getBtdbReader(), fakeFormId, (int)loc.x, (int)loc.y, master,
-						mediaSources.getTextureSource());
+				j3dLAND = new J3dLANDBtdb(J3dLANDBtdb.btdReaderFile.getBtdbReader(), fakeFormId, (int)loc.x, (int)loc.y,
+						0, master, mediaSources.getTextureSource());
+				//System.out.println("Lod0 of loc " + loc + " added");
 			}
-			
+
 			// apparently we need a half grid offset this time
 			Vector3f cellLoc = new Vector3f(cellLocation);
 			cellLoc.x -= J3dLANDBtdb.LAND_SIZE / 2.0f;
-			cellLoc.z += J3dLANDBtdb.LAND_SIZE/ 2.0f; // a minus minus
-			
+			cellLoc.z += J3dLANDBtdb.LAND_SIZE / 2.0f; // a minus minus
+
 			j3dLAND.setLocation(cellLoc, new Quat4f(0, 0, 0, 1));
 
 			float wl = getWaterLevel(cell.XCLW);
@@ -57,7 +60,7 @@ public class J3dCELLTemporary extends J3dCELL {
 			}
 
 			addJ3dRECOInst(j3dLAND);
-						
+
 			j3dRECOs.put(fakeFormId, j3dLAND);
 		}
 

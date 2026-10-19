@@ -28,6 +28,7 @@ import esmj3dfo76.data.records.ALCH;
 import esmj3dfo76.data.records.AMMO;
 import esmj3dfo76.data.records.ARMO;
 import esmj3dfo76.data.records.BOOK;
+import esmj3dfo76.data.records.CNCY;
 import esmj3dfo76.data.records.CONT;
 import esmj3dfo76.data.records.DOOR;
 import esmj3dfo76.data.records.FLOR;
@@ -39,6 +40,7 @@ import esmj3dfo76.data.records.LVLI;
 import esmj3dfo76.data.records.LVLN;
 import esmj3dfo76.data.records.MISC;
 import esmj3dfo76.data.records.MSTT;
+import esmj3dfo76.data.records.NOTE;
 import esmj3dfo76.data.records.NPC_;
 import esmj3dfo76.data.records.REFR;
 import esmj3dfo76.data.records.SCOL;
@@ -303,10 +305,20 @@ public class J3dREFRFactory {
 		} else if (baseRecord.getRecordType().equals("LVLI")) {
 			//A Leveled Item is a list that will generate one or more items based on the current level of the player. 
 			//Leveled Item objects cannot be placed in the world directly. 
+		} else if (baseRecord.getRecordType().equals("SECH")) {
+			//Markers of some sort, feels a lot like flooring and possibly even sounds
+			//EDID example SEMIntFootstepWoodStress
+		} else if (baseRecord.getRecordType().equals("NOTE")) {
+			//has a MODL so probably a good candidate for creating, letters and recordings etc?
+			NOTE note = new NOTE(baseRecord);
+			return makeJ3dRECOActionInst(refr, note, note.MODL, makePhys, mediaSources);			
+		} else if (baseRecord.getRecordType().equals("CNCY")) {
+			CNCY cncy = new CNCY(baseRecord);
+			return makeJ3dRECOActionInst(refr, cncy, cncy.MODL, makePhys, mediaSources);
 		} else {
 			System.out.println("REFR record type not converted to j3d " + baseRecord.getRecordType());
 		}
-
+		
 		return null;
 
 	}
