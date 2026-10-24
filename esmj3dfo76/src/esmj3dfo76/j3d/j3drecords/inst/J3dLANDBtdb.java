@@ -201,7 +201,7 @@ public class J3dLANDBtdb extends J3dLAND {
 				Shape3D baseQuadShape = new Shape3D();
 				baseQuadShape.setAppearance(app);
 
-				int[] attributeSizes = new int[] {4, 4};
+				int[] attributeSizes = new int[] {4, 1};
 
 				try {
 					GeometryArray ga = makeQuadrantBaseSubGeom(colors, quadrantsPerSide, lod, quadrant, 1, 2,
@@ -234,6 +234,7 @@ public class J3dLANDBtdb extends J3dLAND {
 						tus = getTexture(btdbReader.getLandTexture(texBase), master, textureSource);
 					} else {
 						tus = getDefaultTexture(textureSource);
+						System.err.println("using default tex for LANDbtdb!");
 					}
 
 					if (tus == null)
@@ -245,9 +246,9 @@ public class J3dLANDBtdb extends J3dLAND {
 					ByteBuffer bb = ByteBuffer.allocateDirect((quadrantSquareCount * quadrantSquareCount) * 4 * 4);
 					bb.order(ByteOrder.nativeOrder());
 					FloatBuffer alphas03 = bb.asFloatBuffer();
-					bb = ByteBuffer.allocateDirect((quadrantSquareCount * quadrantSquareCount) * 4 * 4);
+					bb = ByteBuffer.allocateDirect((quadrantSquareCount * quadrantSquareCount) * 4 * 1);
 					bb.order(ByteOrder.nativeOrder());
-					FloatBuffer alphas47 = bb.asFloatBuffer();
+					FloatBuffer alphas5 = bb.asFloatBuffer();
 
 					int tusNo = 1;
 
@@ -307,14 +308,14 @@ public class J3dLANDBtdb extends J3dLAND {
 							if ((cellTextureSet[quadOff + 4] & 0xFF) == 0xFF)
 								a4 = 0;
 
-							int idx = ((row * quadrantSquareCount) + col) * 4;
+							int idx = ((row * quadrantSquareCount) + col);
 
-							alphas03.put(idx + 0, a0);
-							alphas03.put(idx + 1, a1);
-							alphas03.put(idx + 2, a2);
-							alphas03.put(idx + 3, a3);
+							alphas03.put(idx * 4 + 0, a0);
+							alphas03.put(idx * 4 + 1, a1);
+							alphas03.put(idx * 4 + 2, a2);
+							alphas03.put(idx * 4 + 3, a3);
 
-							alphas47.put(idx + 0, a4);//FIXME: see sahder this always shows up as black?
+							alphas5.put(idx, a4);//FIXME: see shader this always shows up as black?
 
 						}
 
@@ -324,7 +325,7 @@ public class J3dLANDBtdb extends J3dLAND {
 					//int gc0 = cellTextureSet[quadOff + 8]&0xFF; etc
 
 					ga.setVertexAttrRefBuffer(0, new J3DBuffer(alphas03));
-					ga.setVertexAttrRefBuffer(1, new J3DBuffer(alphas47));
+					ga.setVertexAttrRefBuffer(1, new J3DBuffer(alphas5));
 
 					TextureUnitState[] tusa = new TextureUnitState[allTextureUnitStates.size()];
 					for (int i = 0; i < allTextureUnitStates.size(); i++) {
@@ -772,7 +773,7 @@ public class J3dLANDBtdb extends J3dLAND {
 
 				shaderProgram.setShaderAttrNames(shaderAttrNames);
 
-				String[] vertexAttrNames = new String[] {"alphas03", "alphas47"};
+				String[] vertexAttrNames = new String[] {"alphas03", "alphas5"};
 				shaderProgram.setVertexAttrNames(vertexAttrNames);
 
 			}
